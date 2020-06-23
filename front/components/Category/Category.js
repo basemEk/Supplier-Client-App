@@ -6,7 +6,7 @@ class Category extends Component {
 	render() {
 		return (
 			<>
-
+hello
 			</>
 		);
 	}
