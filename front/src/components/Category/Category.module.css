@@ -1,1 +1,12 @@
- 
+ .container{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(123, 179, 224);
+    padding: 10px;
+    margin-left: 7em;
+ }
+
+ .cardImage{
+     width:100px;
+     height:150px;
+ }

@@ -17,6 +17,12 @@ import SubCategories from "./components/SubCategories/SubCategories";
 import SuccessOrder from "./components/SuccessOrder/SuccessOrder";
 import SuggestProduct from "./components/SuggestProduct/SuggestProduct";
 import SupplierCode from "./components/SupplierCode/SupplierCode";
+import Footer from "./components/Footer/Footer";
+import AdSlider from "./components/AdSlider/AdSlider";
+import Carousel from "./components/Carousel/Carousel";
+
+
+
 
 
 class App extends React.Component {
@@ -25,17 +31,24 @@ class App extends React.Component {
             <>
                 <div className="app-content">
                     <Switch>
+                        
+                    <Route path="/" exact>
+                            <SignIn />
+                        </Route>
+                    <Route path="/sign-up" exact>
+                            <SignUp />
+                        </Route>
                         <Route path="/contact" exact>
                             <ContactUs />
                         </Route>
-                        <Route path="/navbar" exact>
-                            <Navbar />
-                        </Route>
-                        <Route path="/navbar/history" exact>
+                    
+                        <Route path="/history" exact>
                             <History />
                         </Route>
-                        <Route path="/" exact>
-                            <Home />
+                        <Route path="/home" exact>
+                            <Navbar/>
+                            <AdSlider/>
+                            <Category/>
                         </Route>
                         <Route path="/sub-categories/item-info" exact>
                             <ItemInfo />
@@ -49,12 +62,7 @@ class App extends React.Component {
                         <Route path="supplier-code/schedule" exact>
                             <Schedule />
                         </Route>
-                        <Route path="sign-in/sign-up" exact>
-                            <SignUp />
-                        </Route>
-                        <Route path="/sign-in" exact>
-                            <SignIn />
-                        </Route>
+                        
                         <Route path="/statistics" exact>
                             <Statistics />
                         </Route>
@@ -71,7 +79,9 @@ class App extends React.Component {
                             <SupplierCode />
                         </Route>
                     </Switch>
-                    <Category /> {/* attention gaby */}
+                    {/* <Category/> */}
+                    <Footer/>
+
                 </div>
             </>
         );
