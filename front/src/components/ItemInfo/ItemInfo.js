@@ -7,12 +7,11 @@ class ItemInfo extends Component {
 		return (
 			<>
 <div>
-	image
+<img src={process.env.PUBLIC_URL + '/assets/29-hero.jpg'}/>
 </div>
 
 <div>
 	<p>title</p>
-	<image src="image"/>
 	<p>description</p>
 	<p>price</p>
 	<p>minimum price</p>

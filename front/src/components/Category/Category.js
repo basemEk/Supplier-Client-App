@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
 import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-link";
+import { Link } from "react-router-dom";
 import classes from "./Category.module.css";
-import SubCategories from "../SubCategories/SubCategories";
 
 class Category extends Component {
     render() {
@@ -21,10 +21,11 @@ class Category extends Component {
                                 <Card.Text>Add price here LBP</Card.Text>
 
                                 <Link to="/sub-categories">
-                                <Button variant="primary">Go somewhere</Button>   
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
                                 </Link>
                             </Card.Body>
-                            
                         </Card>
                     </div>
 
@@ -38,7 +39,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -53,7 +58,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -68,7 +77,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -83,7 +96,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -98,7 +115,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -113,7 +134,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -128,7 +153,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -143,7 +172,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -158,7 +191,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -173,7 +210,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>
@@ -188,7 +229,11 @@ class Category extends Component {
                             <Card.Body>
                                 <Card.Title>Card Title</Card.Title>
                                 <Card.Text>Add price here LBP</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Link to="/sub-categories">
+                                    <Button variant="primary">
+                                        Go somewhere
+                                    </Button>
+                                </Link>{" "}
                             </Card.Body>
                         </Card>
                     </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-link";
 import classes from './SubCategories.module.css';

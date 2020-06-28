@@ -18,10 +18,7 @@ import SuccessOrder from "./components/SuccessOrder/SuccessOrder";
 import SuggestProduct from "./components/SuggestProduct/SuggestProduct";
 import SupplierCode from "./components/SupplierCode/SupplierCode";
 import Footer from "./components/Footer/Footer";
-import AdSlider from "./components/AdSlider/AdSlider";
 import Carousel from "./components/Carousel/Carousel";
-
-
 
 
 
@@ -46,8 +43,6 @@ class App extends React.Component {
                             <History />
                         </Route>
                         <Route path="/home" exact>
-                            <Navbar/>
-                            <AdSlider/>
                             <Category/>
                         </Route>
                         <Route path="/sub-categories/item-info" exact>
@@ -75,12 +70,12 @@ class App extends React.Component {
                         <Route path="/suggest-product" exact>
                             <SuggestProduct />
                         </Route>
-                        <Route path="sign-in/supplier-code" exact>
+                        <Route path="/supplier-code" exact>
                             <SupplierCode />
                         </Route>
                     </Switch>
-                    {/* <Category/> */}
-                    <Footer/>
+                    {/* <Footer/> */}
+                    <Navbar/>
 
                 </div>
             </>
