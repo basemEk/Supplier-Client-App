@@ -1,13 +1,14 @@
 .signupWrapper {
-    border-radius: 15%;
+    border-radius: 20%;
     padding:10%;
     background-color: rgb(137, 222, 228);
-    width: 500px;
-    height: 400px;
+    width: 700px;
+    height: 800px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    margin:50px 50px
   }
   
   .signupForm{

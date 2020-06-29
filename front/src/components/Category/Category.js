@@ -138,7 +138,7 @@ class Category extends Component {
                                     <Button variant="primary">
                                         Go somewhere
                                     </Button>
-                                </Link>{" "}
+                                </Link>
                             </Card.Body>
                         </Card>
                     </div>

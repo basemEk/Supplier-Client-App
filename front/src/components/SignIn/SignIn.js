@@ -108,7 +108,7 @@ export default class Login extends Component {
                         />
 
                         <p className="forgot-password text-right">
-                            <p>
+                            <p><br/>
                                 If you are new to the Application,{" "}
                                 <Link to="/sign-up">Sign up here</Link>
                             </p>
