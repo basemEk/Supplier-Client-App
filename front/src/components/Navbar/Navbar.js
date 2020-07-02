@@ -6,7 +6,8 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 export default class Navbar extends Component {
     render() {
         return (
-            <div>
+            <div className="container-nav">
+            <div className={classes.Navbar}>
                 <SideNav
                     onSelect={(selected) => {
                         // Add your code here
@@ -40,6 +41,7 @@ export default class Navbar extends Component {
                         </NavItem>
                     </SideNav.Nav>
                 </SideNav>
+            </div>
             </div>
         );
     }

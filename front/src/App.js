@@ -74,7 +74,7 @@ class App extends React.Component {
                             <SupplierCode />
                         </Route>
                     </Switch>
-                    {/* <Footer/> */}
+                    <Footer/>
                     <Navbar/>
 
                 </div>

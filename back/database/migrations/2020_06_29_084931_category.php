@@ -18,7 +18,7 @@ class Category extends Migration
             $table->text('title');
             $table->text('image');
             $table->unsignedInteger('supplier_info_id');
-            $table->foreign('supplier_info_id')->references('id')->on('supplier_info');
+            $table->foreign('supplier_info_id')->references('id')->on('supplier_info')->onDelete('cascade');
             $table->timestamps();
         });
     }

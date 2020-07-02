@@ -76,7 +76,7 @@ export default class Login extends Component {
                             value={this.state.password}
                             onChange={this.handlechange}
                             className={classes.formControl}
-                            placeholder="example@email.com"
+                            placeholder="password"
                         />
                         <br />
                         <div style={{ color: "red", fontSize: 12 }}>
