@@ -89,3 +89,15 @@ Route::post('/supplier/info/create','SupplierInfoController@store');
 Route::put( '/supplier/info/{id}', 'SupplierInfoController@update' );
 Route::delete('/supplier/info/{id}', 'SupplierInfoController@destroy'); //not working
 
+
+Route::post('/register', 'AuthController@register');
+Route::post('/login', 'AuthController@login');
+Route::post('/logout', 'AuthController@logout');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('/tasks', 'TaskController@index');
+    Route::get('/task/{id}', 'TaskController@show');
+    Route::post('/task/{id}', 'TaskController@update');
+    Route::post('/task', 'TaskController@store');
+    Route::delete('/task/{id}', 'TaskController@destroy');
+});
