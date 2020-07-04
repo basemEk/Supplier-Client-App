@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import classes from "./SignIn.module.css";
+// import PasswordField from "../PasswordField/PasswordField";
 
 export default class Login extends Component {
     state = {
@@ -78,6 +79,7 @@ export default class Login extends Component {
                             className={classes.formControl}
                             placeholder="password"
                         />
+                       
                         <br />
                         <div style={{ color: "red", fontSize: 12 }}>
                             {this.state.passwordError}

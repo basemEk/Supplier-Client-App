@@ -1,1 +1,49 @@
- 
+.searchBar{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    margin-left:10em;
+    margin-top:5%;
+}
+
+.dateSearch{
+    float:right;
+    margin-right: 10%;
+}
+
+.histoDiv{
+    margin:5%;
+    margin-left: 10%;
+    padding:5%;
+    background-color:rgb(183, 234, 238); 
+    border-radius: 10%;
+} 
+
+.h2{
+    text-align: center;
+    margin-top: 2%;
+}
+
+.h3{
+    text-align: center;
+}
+
+.supplierInfo{
+    line-height: 0.5rem;
+}
+
+.btn{
+    margin-left: 48em;
+    margin-top: 6em;
+} 
+
+.h4{
+    /* float: right; */
+    margin-left:30em    
+
+}
+
+.total{
+    float:right
+}
+
