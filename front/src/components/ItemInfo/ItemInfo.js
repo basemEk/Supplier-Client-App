@@ -30,8 +30,8 @@ class ItemInfo extends Component {
 
                         <h4>25000 LBP</h4>
 
-                        <p>Minimum ordered Quantity:</p>
-                        <input type="text" />
+                        <p>Minimum Ordered Quantity:</p>
+                        <input type="text" readOnly/>
                         <br />
                         <br />
                         <Button variant="primary">Add to Cart</Button>
