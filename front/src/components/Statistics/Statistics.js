@@ -6,7 +6,7 @@ class Statistics extends Component {
 	render() {
 		return (
 			<>
-
+                        
 			</>
 		);
 	}

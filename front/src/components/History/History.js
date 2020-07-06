@@ -95,7 +95,13 @@ class History extends Component {
 				</div>
 
 
-<hr/>
+
+
+
+                    <hr/>
+
+
+
 
 				<div className={classes.histoDiv}>
 					<h3 className={classes.h3}>Order Invoice</h3>

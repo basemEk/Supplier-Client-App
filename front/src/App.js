@@ -18,7 +18,7 @@ import SuccessOrder from "./components/SuccessOrder/SuccessOrder";
 import SuggestProduct from "./components/SuggestProduct/SuggestProduct";
 import SupplierCode from "./components/SupplierCode/SupplierCode";
 import Footer from "./components/Footer/Footer";
-import Carousel from "./components/Carousel/Carousel";
+// import Carousel from "./components/Carousel/Carousel";
 
 
 
