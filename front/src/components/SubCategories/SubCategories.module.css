@@ -1,12 +1,18 @@
 .container{
     display: flex;
     flex-wrap: wrap;
-    background-color: rgb(123, 179, 224);
+    background-color: transparent;
+    border: 8px solid rgb(123, 179, 224);
     padding: 10px;
-    margin-left: 7em;
+    justify-content: space-around;
  }
 
- .cardImage{
+ .cardImage {
     width:150px;
     height:150px;
 }
+.threeTabs{
+    margin-left: 6em;
+   
+}
+

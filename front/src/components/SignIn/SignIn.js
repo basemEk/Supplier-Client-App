@@ -1,36 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import classes from "./SignIn.module.css";
-// import PasswordField from "../PasswordField/PasswordField";
+import axios from 'axios'
 
 
-export default class Login extends Component {
-    fetchLogin = () => {
-const axios = require('axios').default;
-
-axios.get('http://127.0.0.1:8000/api/sign-in')
-  .then(function (response) {
-
-    console.log(response);
-  })
-  .catch(function (error) {
-
-    console.log(error);
-  })
-  .finally(function () {
-    
-  });
-    }
-
-
-
-	state = {
+class Login extends Component {
+constructor(props){
+	super(props)
+	this.state = {
 		email: "",
 		password: "",
 		emailError: "",
 		passwordError: "",
 	};
-
+}
 	handlechange = (event) => {
 		this.setState({
 			[event.target.name]: event.target.value,
@@ -56,12 +39,19 @@ axios.get('http://127.0.0.1:8000/api/sign-in')
 		return true;
 	};
 
-	handleSubmit = (event) => {
+	handleSubmit = () => {
+		console.log(this.state)
 		const isValid = this.validate();
-		if (isValid) {
-			console.log(this.state);
-			this.setState(this.state);
-		}
+		if (isValid){
+		axios.post('http://127.0.0.1:8000/api/login', {
+			email:this.state.email,
+			password:this.state.password
+		}).then((res)=>{
+			localStorage.setItem('token', res.data.access_token)
+			this.props.history.push('/supplier-code')
+
+		})
+	}
 	};
 
 	render() {
@@ -69,7 +59,7 @@ axios.get('http://127.0.0.1:8000/api/sign-in')
 			<>
 				<div className={classes.signinWrapper}>
 					<form
-						onSubmit={(event) => this.handleSubmit(event)}
+						onSubmit={this.handleSubmit}
 						className={classes.signinForm}
 					>
 						<h2 className={classes.signIn}>Sign In</h2>
@@ -143,3 +133,6 @@ axios.get('http://127.0.0.1:8000/api/sign-in')
 		);
 	}
 }
+
+
+export default withRouter(Login);

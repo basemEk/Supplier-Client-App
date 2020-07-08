@@ -17,7 +17,7 @@ return [
         'guard' => 'api',
         'passwords' => 'users',
       ],
-    
+
       'guards' => [
         'api' => [
           'driver' => 'jwt',
@@ -47,9 +47,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    
+
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
     ],

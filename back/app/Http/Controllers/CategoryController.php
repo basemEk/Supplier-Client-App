@@ -14,6 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $category = Category::all()->toArray();
 
         return response()->json([
@@ -21,7 +22,7 @@ class CategoryController extends Controller
             'data' => $category
         ]);
 
-        
+
     }
 
     /**
@@ -48,7 +49,7 @@ class CategoryController extends Controller
             'supplier_info_id' => 'required',
         ]);
 
-        $category = new Category();   
+        $category = new Category();
 
         $category->supplier_info_id = $request->supplier_info_id;
         $category->title = $request->title;

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
- 
+
 
 Route::get('/sub/category','SubCategoryController@index');
 Route::get('/sub/category/{id}','SubCategoryController@getById');
@@ -51,10 +51,12 @@ Route::delete('/contact/{id}', 'ContactController@destroy');
 Route::get('/item/info','ItemInfoController@index');
 Route::get('/item/info/{id}','ItemInfoController@show');
 Route::post('/item/info/create','ItemtInfoController@store');
-Route::put( '/item/info/{id}', 'ItemInfoController@update' );
+Route::put('/item/info/{id}', 'ItemInfoController@update' );
 Route::delete('/item/info/{id}', 'ItemInfoController@destroy');
 
-
+//Get all | GET | ordered/item
+//GET one item by ID | GET | ordered/item/{id}
+//Create one item by ID | POST | ordered/item
 Route::get('/ordered/item','OrderedItemController@index');
 Route::get('/ordered/item/{id}','OrderedItemController@show');
 Route::post('/ordered/item/create','OrderedItemController@store');
@@ -65,21 +67,21 @@ Route::delete('/ordered/item/{id}', 'OrderedItemController@destroy');
 Route::get('/order/history','OrderHistoryController@index');
 Route::get('/order/history/{id}','OrderHistoryController@show');
 Route::post('/order/history/create','OrderHistoryController@store');
-Route::put( '/order/history/{id}', 'OrderHistoryController@update' );
+Route::put('/order/history/{id}', 'OrderHistoryController@update' );
 Route::delete('/order/history/{id}', 'OrderHistoryController@destroy');
 
 
 Route::get('/sub/info','SubInfoController@index');
 Route::get('/sub/info/{id}','SubInfoController@show');
 Route::post('/sub/info/create','SubInfoController@store');
-Route::put( '/sub/info/{id}', 'SubInfoController@update' );
+Route::put('/sub/info/{id}', 'SubInfoController@update' );
 Route::delete('/sub/info/{id}', 'SubInfoController@destroy');
 
 
 Route::get('/supplier/code','SupplierCodeController@index');
 Route::get('/supplier/code/{id}','SupplierCodeController@show');
 Route::post('/supplier/code/create','SupplierCodeController@store');
-Route::put( '/supplier/code/{id}', 'SupplierCodeController@update' );
+Route::put('/supplier/code/{id}', 'SupplierCodeController@update' );
 Route::delete('/supplier/code/{id}', 'SupplierCodeController@destroy');
 
 
