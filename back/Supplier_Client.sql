@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 09, 2020 at 02:00 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.6
+-- Host: localhost:3306
+-- Generation Time: Jul 09, 2020 at 06:38 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -18,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Supplier_Client`
+-- Database: `bassem_app`
 --
 
 -- --------------------------------------------------------
@@ -33,15 +32,17 @@ CREATE TABLE `category` (
   `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `supplier_info_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `title`, `image`, `supplier_info_id`, `created_at`, `updated_at`) VALUES
-(2, 'tile-test', 'imagetest', 5, NULL, NULL);
+INSERT INTO `category` (`id`, `title`, `image`, `supplier_info_id`, `created_at`, `updated_at`, `slug`) VALUES
+(4, 'Cans', 'cans.jpg', 4, NULL, NULL, '1-cans.jpg'),
+(5, 'Chips & Nuts', '2-chips-nuts.jpg', 4, NULL, NULL, 'chips-nuts');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,6 +104,14 @@ CREATE TABLE `item_info` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `item_info`
+--
+
+INSERT INTO `item_info` (`id`, `title`, `image`, `description`, `price_lbp`, `price_dollar`, `minimum_quantity`, `created_at`, `updated_at`) VALUES
+(1, 'fresh Hummus', '1-fresh-hummus.jpg', 'Fresh hummus are you sure?', 5000, 1, 12, NULL, NULL),
+(2, 'Kidney beans', '2-kidney-beans.jpg', 'Hello world please read me', 1000, 10, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,7 +146,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2020_06_29_085357_supplier_code', 1),
 (15, '2020_06_29_085429_contact_us', 1),
 (16, '2020_06_29_085547_order_history', 1),
-(17, '2020_06_29_085615_ordered_item', 1);
+(17, '2020_06_29_085615_ordered_item', 1),
+(19, '2020_07_09_145355_add_slug_to_category_table', 2);
 
 -- --------------------------------------------------------
 
@@ -150,7 +160,7 @@ CREATE TABLE `oauth_access_tokens` (
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -167,7 +177,7 @@ CREATE TABLE `oauth_auth_codes` (
   `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -256,11 +266,20 @@ CREATE TABLE `order_history` (
 CREATE TABLE `sub_categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sub_categories`
+--
+
+INSERT INTO `sub_categories` (`id`, `title`, `category_id`, `created_at`, `updated_at`) VALUES
+(1, 'Grains-Cans', 4, NULL, NULL),
+(2, 'Beverage Cans', 4, NULL, NULL),
+(3, 'Chips', 5, NULL, NULL),
+(4, 'Nuts', 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -275,6 +294,14 @@ CREATE TABLE `sub_info` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sub_info`
+--
+
+INSERT INTO `sub_info` (`id`, `item_info_id`, `sub_categories_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, NULL, NULL),
+(2, 2, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -346,6 +373,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category_slug_unique` (`slug`),
   ADD KEY `category_supplier_info_id_foreign` (`supplier_info_id`);
 
 --
@@ -470,7 +498,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `client_info`
@@ -494,13 +522,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `item_info`
 --
 ALTER TABLE `item_info`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -530,13 +558,13 @@ ALTER TABLE `order_history`
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sub_info`
 --
 ALTER TABLE `sub_info`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `supplier_code`
@@ -598,7 +626,6 @@ ALTER TABLE `sub_info`
 --
 ALTER TABLE `supplier_code`
   ADD CONSTRAINT `supplier_code_supplier_info_id_foreign` FOREIGN KEY (`supplier_info_id`) REFERENCES `supplier_info` (`id`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
