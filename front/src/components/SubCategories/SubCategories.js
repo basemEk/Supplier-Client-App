@@ -1,67 +1,199 @@
 import React, { Component } from "react";
-import { Tabs, Tab,Card, Button } from "react-bootstrap";
+import { Tabs, Tab, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./SubCategories.module.css";
-import './SubCategories.css';
-import axios from 'axios';
-
+import "./SubCategories.css";
+import axios from "axios";
 
 class SubCategories extends Component {
-	constructor(props){
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-        data:[]
-        }
+		this.state = {
+			data: [],
+		};
 	}
 
 	//fetching the data
 	handleSubmit = () => {
-		axios.get('http://127.0.0.1:8000/api/sub/category').then((res)=>{
-			this.setState({data:res.data.data})
-		})
-	}
+		axios.get("http://127.0.0.1:8000/api/sub/category").then((res) => {
+			this.setState({ data: res.data.data });
+		});
+	};
 
-	componentDidMount=()=>{
+	componentDidMount = () => {
 		this.handleSubmit();
-	}
+	};
 
 	render() {
 		return (
 			<>
-		<div className={classes.threeTabs}>
+				<div className={classes.threeTabs}>
 					<Tabs
 						defaultActiveKey="All"
 						transition={false}
 						id="noanim-tab-example"
 					>
 						<Tab eventKey="All" title="All">
-						<div className={classes.container}>
-							{this.state.data.map(key=>{
-								return(<>
-								<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + `/assets/${key.image}`}
-									/>
-									<Card.Body>
-								<Card.Title>{key.title}</Card.Title>
-										<Card.Text>5000 LBP</Card.Text>
+							<div className={classes.container}>
+								{this.state.data.map((key) => {
+									return (
+										<>
+											<div className={classes.gridCategory}>
+												<Card style={{ width: "12rem" }}>
+													<Card.Img
+														className={classes.cardImage}
+														variant="top"
+														src={
+															process.env.PUBLIC_URL + `/assets/${key.image}`
+														}
+													/>
+													<Card.Body>
+														<Card.Title>{key.title}</Card.Title>
+														<Card.Text>5000 LBP</Card.Text>
 
-										<Link to="/sub-categories/item-info">
-											<Button variant="primary">Order Now</Button>
-										</Link>
-									</Card.Body>
-								</Card>
+														<Link to="/sub-categories/item-info">
+															<Button variant="primary">Order Now</Button>
+														</Link>
+													</Card.Body>
+												</Card>
+											</div>
+										</>
+									);
+								})}
 							</div>
+						</Tab>
 
-							</>
-							)})}
-							
+						<Tab eventKey="Grains" title="Grains Cans"><div className={classes.container}>
+								{this.state.data.map((key) => {
+									return (
+										<>
+											<div className={classes.gridCategory}>
+												<Card style={{ width: "12rem" }}>
+													<Card.Img
+														className={classes.cardImage}
+														variant="top"
+														src={
+															process.env.PUBLIC_URL + `/assets/${key.image}`
+														}
+													/>
+													<Card.Body>
+														<Card.Title>{key.title}</Card.Title>
+														<Card.Text>5000 LBP</Card.Text>
 
-							{/* <div className={classes.gridCategory}>
+														<Link to="/sub-categories/item-info">
+															<Button variant="primary">Order Now</Button>
+														</Link>
+													</Card.Body>
+												</Card>
+											</div>
+										</>
+									);
+								})}
+							</div>
+							</Tab>
+
+						<Tab eventKey="Meat Cans" title="Meats Cans">
+						<div className={classes.container}>
+								{this.state.data.map((key) => {
+									return (
+										<>
+											<div className={classes.gridCategory}>
+												<Card style={{ width: "12rem" }}>
+													<Card.Img
+														className={classes.cardImage}
+														variant="top"
+														src={
+															process.env.PUBLIC_URL + `/assets/${key.image}`
+														}
+													/>
+													<Card.Body>
+														<Card.Title>{key.title}</Card.Title>
+														<Card.Text>5000 LBP</Card.Text>
+
+														<Link to="/sub-categories/item-info">
+															<Button variant="primary">Order Now</Button>
+														</Link>
+													</Card.Body>
+												</Card>
+											</div>
+										</>
+									);
+								})}
+							</div>
+						</Tab>
+
+						<Tab eventKey="Beverage Cans" title="Beverage Cans">
+						<div className={classes.container}>
+								{this.state.data.map((key) => {
+									return (
+										<>
+											<div className={classes.gridCategory}>
+												<Card style={{ width: "12rem" }}>
+													<Card.Img
+														className={classes.cardImage}
+														variant="top"
+														src={
+															process.env.PUBLIC_URL + `/assets/${key.image}`
+														}
+													/>
+													<Card.Body>
+														<Card.Title>{key.title}</Card.Title>
+														<Card.Text>5000 LBP</Card.Text>
+
+														<Link to="/sub-categories/item-info">
+															<Button variant="primary">Order Now</Button>
+														</Link>
+													</Card.Body>
+												</Card>
+											</div>
+										</>
+									);
+								})}
+							</div>
+						</Tab>
+
+						<Tab eventKey="Another Cans" title="Another Cans">
+						<div className={classes.container}>
+								{this.state.data.map((key) => {
+									return (
+										<>
+											<div className={classes.gridCategory}>
+												<Card style={{ width: "12rem" }}>
+													<Card.Img
+														className={classes.cardImage}
+														variant="top"
+														src={
+															process.env.PUBLIC_URL + `/assets/Cans/Beverage${key.image}`
+														}
+													/>
+													<Card.Body>
+														<Card.Title>{key.title}</Card.Title>
+														<Card.Text>5000 LBP</Card.Text>
+
+														<Link to="/sub-categories/item-info">
+															<Button variant="primary">Order Now</Button>
+														</Link>
+													</Card.Body>
+												</Card>
+											</div>
+										</>
+									);
+								})}
+							</div>
+						</Tab>
+
+					</Tabs>
+				</div>
+			</>
+		);
+	}
+}
+
+export default SubCategories;
+
+{
+	/* <div className={classes.gridCategory}>
 								<Card style={{ width: "12rem" }}>
 									<Card.Img
 										className={classes.cardImage}
@@ -74,9 +206,11 @@ class SubCategories extends Component {
 										<Button variant="primary">Order Now</Button>
 									</Card.Body>
 								</Card>
-							</div> */}
+							</div> */
+}
 
-						{/* 	<div className={classes.gridCategory}>
+{
+	/* 	<div className={classes.gridCategory}>
 								<Card style={{ width: "12rem" }}>
 									<Card.Img
 										className={classes.cardImage}
@@ -519,20 +653,5 @@ class SubCategories extends Component {
 										<Button variant="primary">Order Now</Button>
 									</Card.Body>
 								</Card>
-							</div> */}
-						</div>
-		
-						</Tab>
-						<Tab eventKey="Grains" title="Grains"></Tab>
-						<Tab eventKey="Meat Cans" title="Meat Cans"></Tab>
-					</Tabs>
-				</div>
-					
-
-		
-			</>
-		);
-	}
+							</div> */
 }
-
-export default SubCategories;
