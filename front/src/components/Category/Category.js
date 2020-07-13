@@ -30,7 +30,7 @@ class Category extends Component {
 		return (
 			<>
 				<div className={classes.container}>
-					<div className={classes.gridCategory}>
+					<div className={classes.flexCategories}>
 						{this.state.data.map((key) => {
 							return (
 								<div>
