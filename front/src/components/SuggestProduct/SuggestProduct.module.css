@@ -1,1 +1,8 @@
  
+ .suggestPage{
+        width: 500px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+ }

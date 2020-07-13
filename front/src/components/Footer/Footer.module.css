@@ -1,11 +1,23 @@
-.copyRights{
-    text-align: center;
-    color: whitesmoke;
-    padding-top: 160px;
-}
+.cpText{ color: whitesmoke;
+     text-shadow: 0 1px
+     rgba(255, 255, 255, 0.1);
+    opacity: 70%;
+    padding-top: 1%;
+
+    }
+
+
+
 
 .footerDiv{
     background-color: rgb(59, 55, 55);
-    margin-top: 60px;
-}
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height:8%;
+        text-align: center;
+     }
 
+
+     
