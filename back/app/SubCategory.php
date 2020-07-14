@@ -10,8 +10,10 @@ class SubCategory extends Model
     protected $fillable = ['title', 'image', 'category_id'];
 
 
-    public function informations()
+    public function items()
     {
-        return $this->belongsToMany(ItemInfo::class, 'sub_info','item_info_id','sub_categories_id');
+        return $this->belongsToMany('App\ItemInfo', 'sub_info','sub_categories_id', 'item_info_id');
     }
+
+
 }

@@ -28,14 +28,14 @@ class App extends React.Component {
 					<Switch>
 						<Route path="/" exact component={SignIn} />
 						<Route path="/sign-up" exact component={SignUp} />
-						<Route path="/contact" exact component={ContactUs} />
+						<Route path="/contact-us" exact component={ContactUs} />
 						<Route path="/history" exact component={History} />
 						<Route path="/home" exact component={Category} />
 						<Route path="/notifications" exact component={Notifications} />
 						<Route path="/order-list" exact component={OrderList} />
 						<Route path="supplier-code/schedule" exact Component={Schedule} />
 						<Route path="/statistics" exact component={Statistics} />
-						<Route path="/sub-categories" exact component={SubCategories} />
+						<Route path="/sub-categories/:id" exact component={SubCategories} />
 						<Route path="/suggest-product" exact component={SuggestProduct} />
 						<Route path="/supplier-code" exact component={SupplierCode} />
                         <Route

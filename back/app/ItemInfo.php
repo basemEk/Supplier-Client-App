@@ -12,7 +12,7 @@ class ItemInfo extends Model
     
         public function sub_categories()
         {
-            return $this->belongsToMany(SubCategory::class, 'sub_info','sub_categories_id','item_info_id');
+            return $this->belongsToMany('App\SubCategory', 'sub_info', 'item_info_id', 'sub_categories_id');
         }
     }
 

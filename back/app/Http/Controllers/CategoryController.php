@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
-
+use App\SubCategory;
 class CategoryController extends Controller
 {
     /**
@@ -15,11 +15,17 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $category = Category::all()->toArray();
+        $categories = Category::all()->toArray();
+        $temp_categories = [];
 
+        foreach($categories as $category) {
+            $category['image']= url('/uploads/categories/' . $category['image']);
+            $temp_categories[] = $category;
+        }
+        
         return response()->json([
             'success' => true,
-            'data' => $category
+            'data' => $temp_categories
         ]);
 
 
@@ -165,5 +171,40 @@ class CategoryController extends Controller
                 'message' => 'the category could not be deleted.'
             ], 500);
         }
+    }
+
+
+    public function getCategoryProducts($id)
+    {
+        # code...
+
+
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the category with id ' . $id . ' can not be found.'
+            ], 400);
+        }
+
+        $sub_categories = $category->subCategories;
+
+        $products = [];
+
+        foreach($sub_categories as $sub_category) {
+
+            foreach($sub_category->items->toArray() as $product) {
+                $product['sub_category'] = $sub_category->toArray(); 
+                $products[] = $product;
+
+            }
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'data' => $products,
+        ]);
     }
 }

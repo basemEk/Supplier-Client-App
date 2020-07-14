@@ -1,8 +1,16 @@
- 
  .suggestPage{
-        width: 500px;
-        height: 100px;
-        position: absolute;
-        left: 50%;
-        margin-left: -50px;
+    width: 500px;
+    height: 100px;
+    position: absolute;
+    left: 40%;
+    top:7%;
+    margin-left: -50px;
+    padding:2%;
+    background-color:rgb(183, 234, 238); 
+    border-radius: 10%;
  }
+
+
+.inputGroupBtn{
+    margin-left: 3%;
+}

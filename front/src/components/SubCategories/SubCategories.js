@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Tabs, Tab, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./SubCategories.module.css";
-import "./SubCategories.css";
 import axios from "axios";
 
 class SubCategories extends Component {
@@ -10,24 +9,70 @@ class SubCategories extends Component {
 		super(props);
 
 		this.state = {
-			data: [],
+			products: [],
+			subCategories: [],
 		};
 	}
 
+	//save products to local storage
+
+	setData() {
+		let obj = { id: 1, item: "pepsi" };
+		localStorage.setItem("myData", JSON.stringify(obj));
+		sessionStorage.setItem("mySessionStorageData", JSON.stringify(obj));
+	}
+
+	getData() {
+		let data = sessionStorage.getItem("mySessionStorageData");
+		data = JSON.parse(data);
+		console.log(data.item);
+	}
+
 	//fetching the data
-	handleSubmit = () => {
+	getSubCategories = () => {
 		axios.get("http://127.0.0.1:8000/api/sub/category").then((res) => {
 			this.setState({ data: res.data.data });
 		});
 	};
 
 	componentDidMount = () => {
-		this.handleSubmit();
+		this.getSubCategories();
+		this.getProducts(this.props.match.params.id);
+	};
+
+	getProducts = (category_id) => {
+		axios
+			.get(
+				`${process.env.REACT_APP_BACKEND_URL}/api/category/${category_id}/products`
+			)
+			.then((res) => {
+				const sub_categories_without_duplicates = [];
+
+				const sub_categories = res.data.data.map((product) => {
+					const sub_category = sub_categories_without_duplicates.find(sub => sub.id === product.sub_category.id);
+
+					if(sub_category === undefined){
+						sub_categories_without_duplicates.push(product.sub_category)
+					}
+					return product.sub_category;
+				});
+
+
+				this.setState({
+					products: res.data.data,
+					subCategories: sub_categories_without_duplicates,
+				});
+			});
 	};
 
 	render() {
 		return (
 			<>
+				<div className={classes.localstorageTest}>
+					{this.props.match.params.id}
+					<button onClick={() => this.setData()}>Set data</button>
+					<button onClick={() => this.getData()}>Get data</button>
+				</div>
 				<div className={classes.threeTabs}>
 					<Tabs
 						defaultActiveKey="All"
@@ -36,7 +81,7 @@ class SubCategories extends Component {
 					>
 						<Tab eventKey="All" title="All">
 							<div className={classes.container}>
-								{this.state.data.map((key) => {
+								{this.state.products.map((key) => {
 									return (
 										<>
 											<div className={classes.gridCategory}>
@@ -64,125 +109,40 @@ class SubCategories extends Component {
 							</div>
 						</Tab>
 
-						<Tab eventKey="Grains" title="Grains Cans"><div className={classes.container}>
-								{this.state.data.map((key) => {
-									return (
-										<>
-											<div className={classes.gridCategory}>
-												<Card style={{ width: "12rem" }}>
-													<Card.Img
-														className={classes.cardImage}
-														variant="top"
-														src={
-															process.env.PUBLIC_URL + `/assets/${key.image}`
-														}
-													/>
-													<Card.Body>
-														<Card.Title>{key.title}</Card.Title>
-														<Card.Text>5000 LBP</Card.Text>
+						{this.state.subCategories.map((sub_category) => {
+							return (
+								<Tab eventKey={sub_category.id} title={sub_category.title}>
+									<div className={classes.container}>
+										{sub_category.items.map((key) => {
+											return (
+												<>
+													<div className={classes.gridCategory}>
+														<Card style={{ width: "12rem" }}>
+															<Card.Img
+																className={classes.cardImage}
+																variant="top"
+																src={
+																	process.env.PUBLIC_URL +
+																	`/assets/${key.image}`
+																}
+															/>
+															<Card.Body>
+																<Card.Title>{key.title}</Card.Title>
+																<Card.Text>5000 LBP</Card.Text>
 
-														<Link to="/sub-categories/item-info">
-															<Button variant="primary">Order Now</Button>
-														</Link>
-													</Card.Body>
-												</Card>
-											</div>
-										</>
-									);
-								})}
-							</div>
-							</Tab>
-
-						<Tab eventKey="Meat Cans" title="Meats Cans">
-						<div className={classes.container}>
-								{this.state.data.map((key) => {
-									return (
-										<>
-											<div className={classes.gridCategory}>
-												<Card style={{ width: "12rem" }}>
-													<Card.Img
-														className={classes.cardImage}
-														variant="top"
-														src={
-															process.env.PUBLIC_URL + `/assets/${key.image}`
-														}
-													/>
-													<Card.Body>
-														<Card.Title>{key.title}</Card.Title>
-														<Card.Text>5000 LBP</Card.Text>
-
-														<Link to="/sub-categories/item-info">
-															<Button variant="primary">Order Now</Button>
-														</Link>
-													</Card.Body>
-												</Card>
-											</div>
-										</>
-									);
-								})}
-							</div>
-						</Tab>
-
-						<Tab eventKey="Beverage Cans" title="Beverage Cans">
-						<div className={classes.container}>
-								{this.state.data.map((key) => {
-									return (
-										<>
-											<div className={classes.gridCategory}>
-												<Card style={{ width: "12rem" }}>
-													<Card.Img
-														className={classes.cardImage}
-														variant="top"
-														src={
-															process.env.PUBLIC_URL + `/assets/${key.image}`
-														}
-													/>
-													<Card.Body>
-														<Card.Title>{key.title}</Card.Title>
-														<Card.Text>5000 LBP</Card.Text>
-
-														<Link to="/sub-categories/item-info">
-															<Button variant="primary">Order Now</Button>
-														</Link>
-													</Card.Body>
-												</Card>
-											</div>
-										</>
-									);
-								})}
-							</div>
-						</Tab>
-
-						<Tab eventKey="Another Cans" title="Another Cans">
-						<div className={classes.container}>
-								{this.state.data.map((key) => {
-									return (
-										<>
-											<div className={classes.gridCategory}>
-												<Card style={{ width: "12rem" }}>
-													<Card.Img
-														className={classes.cardImage}
-														variant="top"
-														src={
-															process.env.PUBLIC_URL + `/assets/Cans/Beverage${key.image}`
-														}
-													/>
-													<Card.Body>
-														<Card.Title>{key.title}</Card.Title>
-														<Card.Text>5000 LBP</Card.Text>
-
-														<Link to="/sub-categories/item-info">
-															<Button variant="primary">Order Now</Button>
-														</Link>
-													</Card.Body>
-												</Card>
-											</div>
-										</>
-									);
-								})}
-							</div>
-						</Tab>
-
+																<Link to="/sub-categories/item-info">
+																	<Button variant="primary">Order Now</Button>
+																</Link>
+															</Card.Body>
+														</Card>
+													</div>
+												</>
+											);
+										})}
+									</div>
+								</Tab>
+							);
+						})}
 					</Tabs>
 				</div>
 			</>
@@ -191,467 +151,3 @@ class SubCategories extends Component {
 }
 
 export default SubCategories;
-
-{
-	/* <div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/pepsi.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div> */
-}
-
-{
-	/* 	<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/miranda.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/7up.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/jalapinos.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/mushroom.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/cola-can.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/cola-diet.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/black-beans.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/baked-beans.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can1.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can2.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-						</div>
-					
-
-						</Tab>
-
-                        <Tab eventKey="Sparkling Drinks" title="Sparkling Drinks">
-
-						<div className={classes.container}>
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can3.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>5000 LBP</Card.Text>
-
-										<Link to="/sub-categories/item-info">
-											<Button variant="primary">Order Now</Button>
-										</Link>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can4.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can6.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can7.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can8.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can9.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "assets/can10.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can11.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can12.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can13.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can14.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can15.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can16.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can17.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can18.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can19.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can20.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can21.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div>
-
-							<div className={classes.gridCategory}>
-								<Card style={{ width: "12rem" }}>
-									<Card.Img
-										className={classes.cardImage}
-										variant="top"
-										src={process.env.PUBLIC_URL + "/assets/can22.jpg"}
-									/>
-									<Card.Body>
-										<Card.Title>Card Title</Card.Title>
-										<Card.Text>Add price here LBP</Card.Text>
-										<Button variant="primary">Order Now</Button>
-									</Card.Body>
-								</Card>
-							</div> */
-}

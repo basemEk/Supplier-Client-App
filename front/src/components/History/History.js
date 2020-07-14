@@ -6,6 +6,7 @@ import classes from "./History.module.css";
 import MyComponent from "../DatePicker/DatePicker";
 
 
+
 class History extends Component {
 	render() {
 		return (
@@ -94,14 +95,7 @@ class History extends Component {
 					</div>
 				</div>
 
-
-
-
-
-                    <hr/>
-
-
-
+				<hr />
 
 				<div className={classes.histoDiv}>
 					<h3 className={classes.h3}>Order Invoice</h3>
