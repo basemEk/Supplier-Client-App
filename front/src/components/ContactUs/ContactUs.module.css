@@ -50,8 +50,8 @@ hr {
 	display: table;
 	padding: 10px;
 	border: 1px solid #182c39;
-  margin-left:50%;
-  border-radius: 0;
+    margin-left:50%;
+    border-radius: 0;
 }
 
 .btn:hover,
@@ -172,10 +172,7 @@ section {
 
 
 .contactUsPage{
-   
     background-color:rgb(183, 234, 238); 
-    border-radius: 80% ;
-    padding:50px;
 }
 
 .contactForm{

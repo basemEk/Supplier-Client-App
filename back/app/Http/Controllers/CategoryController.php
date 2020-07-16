@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\SubCategory;
+
+
 class CategoryController extends Controller
 {
     /**
@@ -17,7 +19,8 @@ class CategoryController extends Controller
 
         $categories = Category::all()->toArray();
         $temp_categories = [];
-
+        
+        //fetching the Category images from the database and display them
         foreach($categories as $category) {
             $category['image']= url('/uploads/categories/' . $category['image']);
             $temp_categories[] = $category;
@@ -136,6 +139,7 @@ class CategoryController extends Controller
                 'success' => true,
                 'data' => $category
             ]);
+
         } else {
             return response()->json([
                 'success' => false,
@@ -176,9 +180,7 @@ class CategoryController extends Controller
 
     public function getCategoryProducts($id)
     {
-        # code...
-
-
+       
         $category = Category::find($id);
 
         if (!$category) {
@@ -187,7 +189,8 @@ class CategoryController extends Controller
                 'message' => 'Sorry, the category with id ' . $id . ' can not be found.'
             ], 400);
         }
-
+        
+        //the relation between the subCategory and the category
         $sub_categories = $category->subCategories;
 
         $products = [];
@@ -197,11 +200,10 @@ class CategoryController extends Controller
             foreach($sub_category->items->toArray() as $product) {
                 $product['sub_category'] = $sub_category->toArray(); 
                 $products[] = $product;
-
             }
         }
 
-
+        
         return response()->json([
             'success' => true,
             'data' => $products,

@@ -17,9 +17,11 @@ class Category extends Component {
 
 	//fetching the data
 	getCategories = () => {
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/category`).then((res) => {
-			this.setState({ categories: res.data.data });
-		});
+		axios
+			.get(`${process.env.REACT_APP_BACKEND_URL}/api/category`)
+			.then((res) => {
+				this.setState({ categories: res.data.data });
+			});
 	};
 
 	componentDidMount = () => {
@@ -31,15 +33,15 @@ class Category extends Component {
 			<>
 				<div className={classes.container}>
 					<div className={classes.flexCategories}>
-						{this.state.categories.map((category) => {
+						{this.state.categories.map((category) => { 
 							return (
 								<div key={category.id}>
-									<Card >
+									<Card>
 										<Link to={`/sub-categories/${category.id}`}>
 											<Card.Img
 												className={classes.cardImage}
 												variant="top"
-												src={category.image	}
+												src={category.image}
 											/>
 										</Link>
 										<Card.Body>
@@ -49,13 +51,12 @@ class Category extends Component {
 								</div>
 							);
 						})}
-
-					
 					</div>
 				</div>
 			</>
 		);
 	}
 }
+
 
 export default Category;

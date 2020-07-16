@@ -16,13 +16,22 @@ class SubCategoryController extends Controller
     {
         $sub_categories = SubCategory::all()->toArray();
 
+    //    dd($sub_categories);
+
+        // //fetching the SubCategory images from the database and display them
+        //  foreach($sub_categories as $sub_category) {
+        //     $sub_category['image']= url('/uploads/products/' . $sub_category['image']);
+        //     $temp_sub_categories[] = $sub_category;
+        // }
+    
+
+
         return response()->json([
             'success' => true,
             'data' => $sub_categories
         ]);
 
     }
-
 
 
     public function getById($id){ 
@@ -128,7 +137,7 @@ class SubCategoryController extends Controller
         if (!$sub_categories) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, sub-category product with id ' . $id . ' cannot be found.'
+                'message' => 'Sorry, sub-category product with id ' . $id . ' can not be found.'
             ], 400);
         }
 

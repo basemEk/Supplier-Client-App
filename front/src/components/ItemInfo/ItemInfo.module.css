@@ -16,3 +16,18 @@ body {
     grid-template-columns: auto auto 
 }
 
+.h2{
+  margin-right: 10em;
+  }
+
+  .h4{
+  float: left;
+  }
+
+  .itemInfoContainer{
+    margin:1%;
+    padding:5%;
+    background-color:rgb(183, 234, 238); 
+    border-radius: 10%;
+  }
+

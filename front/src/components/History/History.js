@@ -13,10 +13,7 @@ class History extends Component {
 			<>
 				<h2 className={classes.h2}>History</h2>
 				<div className={classes.searchBar}>
-					{/* <div className={classes.dateSearch}>
-                    <label>Search by date:</label>
-                 <input type="date"/>
-                </div> */}
+				
 					<div>
 						<MyComponent />
 					</div>

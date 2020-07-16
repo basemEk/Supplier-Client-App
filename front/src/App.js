@@ -35,6 +35,12 @@ class App extends React.Component {
 						<Route path="/order-list" exact component={OrderList} />
 						<Route path="supplier-code/schedule" exact Component={Schedule} />
 						<Route path="/statistics" exact component={Statistics} />
+
+						<Route
+							path="/sub-categories/item-info/:id"
+							exact
+							component={ItemInfo}
+						/>
 						<Route path="/sub-categories/:id" exact component={SubCategories} />
 						<Route path="/suggest-product" exact component={SuggestProduct} />
 						<Route path="/supplier-code" exact component={SupplierCode} />
@@ -43,11 +49,7 @@ class App extends React.Component {
 							exact
 							component={SuccessOrder}
 						/>
-                        <Route
-							path="/sub-categories/item-info"
-							exact
-							component={ItemInfo}
-						/>
+                     
 					</Switch>
 					<Footer />
 					<Navbar />
