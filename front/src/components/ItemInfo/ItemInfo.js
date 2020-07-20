@@ -14,7 +14,7 @@ class ItemInfo extends Component {
 	}
 
 	getProductInfo = (id) => {
-        console.log(`${process.env.REACT_APP_BACKEND_URL}/api/item/info/${id}`)
+		console.log(`${process.env.REACT_APP_BACKEND_URL}/api/item/info/${id}`);
 		axios
 			.get(`${process.env.REACT_APP_BACKEND_URL}/api/item/info/${id}`)
 			.then((res) => {
@@ -26,6 +26,11 @@ class ItemInfo extends Component {
 		this.getProductInfo(this.props.match.params.id);
 	}
 
+	addToCart=()=>{
+        this.props.OrederID(this.state.data);
+        this.props.history.push("/add-to-cart");
+        }
+
 	render() {
 		return (
 			<>
@@ -34,31 +39,47 @@ class ItemInfo extends Component {
 						<>
 							<div>
 								<img
-									src={process.env.REACT_APP_BACKEND_URL + `/uploads/products/${this.state.itemData.image}`}
+									src={
+										process.env.REACT_APP_BACKEND_URL +
+										`/uploads/products/${this.state.itemData.image}`
+									}
 									className={classes.img}
 								/>
 							</div>
-
 							<div className={classes.itemInfoContainer}>
 								<h2 className={classes.h2}>{this.state.itemData.title}</h2>
+								<p>{this.state.itemData.description}</p>
 
-								<p>
-									{this.state.itemData.description}
-								</p>
-
-								<h4 className={classes.h4}>{this.state.itemData.price_lbp}</h4>
+                                <div>
+                                <h4 className={classes.h4}>{this.state.itemData.price_lbp}</h4>
+                                <span className={classes.priceSpan}>LBP</span>
+                                </div>
+								
 								<br />
 								<br />
 
+                                <div>
 								<p>Minimum Ordered Quantity:</p>
-								<input type="text" readOnly value={this.state.itemData.minimum_quantity}/>
+								<input
+									type="text"
+									readOnly
+                                    value={this.state.itemData.minimum_quantity}
+                                    className={classes.readonlyWidth} 
+								/>
+                                <span>pcs</span>
+                                </div>
 								<br />
 								<br />
-								<Button variant="primary">Add to Cart</Button>
-                                 
-                                 <Link to = "/home">
-                                <Button variant="primary">Continue Shopping</Button>
-                                 </Link>
+								<div className={classes.gridBtns}>
+                                <div>
+									<Button onClick={() => this.addToCart()}>Add to Cart</Button>
+								</div>
+									<Link to="/home">
+										<div>
+											<Button variant="primary">Continue Shopping</Button>
+										</div>
+									</Link>									
+								</div>
 							</div>
 						</>
 					) : null}
@@ -69,33 +90,3 @@ class ItemInfo extends Component {
 }
 
 export default ItemInfo;
-
-{
-	/* <div className={classes.imgproductInfo} key={item_info.id}>
-					<div>
-						<img
-							src={
-								process.env.REACT_APP_BACKEND_URL +
-								`/uploads/products/${item_info.image}`
-							}
-							className={classes.img}
-						/>
-					</div>
-
-					<div>
-						<h2>{item_info.title}</h2>
-
-						<p>
-							{item_info.description}
-						</p>
-
-						<h4>{item_info.price}</h4>
-
-						<p>Minimum Ordered Quantity:</p>
-						<input type="text" readOnly />
-						<br />
-						<br />
-						<Button variant="primary">Add to Cart</Button>
-					</div>
-				</div> */
-}

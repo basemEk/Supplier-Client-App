@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageToSubCategories extends Migration
+class CreateSupplierInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddImageToSubCategories extends Migration
      */
     public function up()
     {
-        Schema::table('sub_categories', function (Blueprint $table) {
-            $table->text('image')->nullable();
+        Schema::create('supplier_info', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('supplier_name');
+            $table->string('email');
+            $table->text('company');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddImageToSubCategories extends Migration
      */
     public function down()
     {
-        Schema::table('sub_categories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('supplier_info');
     }
 }

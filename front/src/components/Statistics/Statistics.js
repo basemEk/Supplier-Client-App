@@ -5,17 +5,11 @@ import Button from "react-bootstrap/Button";
 
 
 const state = {
-	labels: [
-		"Recuring Expenses",
-		"Fixed Expenses",
-		"Recuring Incomes",
-		"Fixed Incomes",
-		"Saving plans",
-	],
+	labels: ["item1", "item2", "item3", "item4", "item5"],
 
 	datasets: [
 		{
-			label: "finance",
+			label: "graph",
 
 			backgroundColor: ["#B21F00", "#C9DE00", "#2FDE00", "#00A6B4", "#6800B4"],
 
@@ -61,34 +55,32 @@ export default class Reports extends Component {
 						</div>
 					</div>
 
-
-
-<div>
-					<div
-						style={{
-							position: "relative",
-							width: 650,
-							height: 800,
-							margin: 75,
-						}}
-					>
-						<Bar
-							data={state}
-							options={{
-								title: {
-									display: true,
-									text: "Average of the Total Incomes, Expenses, and Savings",
-									fontSize: 20,
-								},
-								legend: {
-									display: true,
-									position: "right",
-								},
+					<div>
+						<div
+							style={{
+								position: "relative",
+								width: 650,
+								height: 800,
+								margin: 75,
 							}}
-						/>
+						>
+							<Bar
+								data={state}
+								options={{
+									title: {
+										display: true,
+										text: "ordered items",
+										fontSize: 20,
+									},
+									legend: {
+										display: true,
+										position: "right",
+									},
+								}}
+							/>
+						</div>
 					</div>
 				</div>
-        </div>
 			</>
 		);
 	}

@@ -1,19 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\OrderedItem;
-use Illuminate\Http\Request;
 
-class OrderedItemController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+use Illuminate\Http\Request;
+use App\Test;
+class TestController extends Controller
+{ //
+
     public function index()
     {
-        $ordered_item = OrderedItem::all()->toArray();
+        $ordered_item = Test::all()->toArray();
 
         return response()->json([
             'success' => true,
@@ -51,7 +47,7 @@ class OrderedItemController extends Controller
         // ]);
 
         $inputs = $request->all();
-        $order = new OrderedItem();
+        $order = new Test();
         $order->fill($inputs);
         $order->save();
 
@@ -88,7 +84,7 @@ class OrderedItemController extends Controller
      */
     public function show($id)
     {
-        $ordered_item = OrderedItem::find($id);
+        $ordered_item = Test::find($id);
 
         if (!$ordered_item) {
             return response()->json([
@@ -125,7 +121,7 @@ class OrderedItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ordered_item = OrderedItem::find($id);
+        $ordered_item = Test::find($id);
 
         if (!$ordered_item) {
             return response()->json([
@@ -157,7 +153,7 @@ class OrderedItemController extends Controller
      */
     public function destroy($id)
     {
-        $ordered_item = OrderedItem::find($id);
+        $ordered_item = Test::find($id);
 
         if (!$ordered_item) {
             return response()->json([
@@ -178,3 +174,4 @@ class OrderedItemController extends Controller
         }
     }
 }
+

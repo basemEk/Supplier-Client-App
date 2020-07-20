@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SupplierCode extends Migration
+class CreateSubCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class SupplierCode extends Migration
      */
     public function up()
     {
-        Schema::create('supplier_code', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
-            $table->unsignedInteger('supplier_info_id');
-            $table->foreign('supplier_info_id')->references('id')->on('supplier_info')->onDelete('cascade');
+            $table->text('title');
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('category');
             $table->timestamps();
+            $table->text('image')->nullable();
         });
     }
 
@@ -29,6 +30,6 @@ class SupplierCode extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_code');
+        Schema::dropIfExists('sub_categories');
     }
 }

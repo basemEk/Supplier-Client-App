@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class OrderHistory extends Migration
+class CreateOrderHistoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class OrderHistory extends Migration
             $table->integer('invoice');
             $table->unsignedInteger('client_info_id');
             $table->foreign('client_info_id')->references('id')->on('client_info')->onDelete('cascade');
-            $table->unsignedInteger('supplier_info_id');
+            $table->unsignedBigInteger('supplier_info_id');
             $table->foreign('supplier_info_id')->references('id')->on('supplier_info')->onDelete('cascade');
         });
     }

@@ -18,6 +18,8 @@ import SuccessOrder from "./components/SuccessOrder/SuccessOrder";
 import SuggestProduct from "./components/SuggestProduct/SuggestProduct";
 import SupplierCode from "./components/SupplierCode/SupplierCode";
 import Footer from "./components/Footer/Footer";
+import ViewOrderList from "./components/ViewOrderList/ViewOrderList";
+
 // import Carousel from "./components/Carousel/Carousel";
 
 class App extends React.Component {
@@ -35,21 +37,21 @@ class App extends React.Component {
 						<Route path="/order-list" exact component={OrderList} />
 						<Route path="supplier-code/schedule" exact Component={Schedule} />
 						<Route path="/statistics" exact component={Statistics} />
+						<Route path="/sub-categories/:id" exact component={SubCategories} />
+						<Route path="/suggest-product" exact component={SuggestProduct} />
+						<Route path="/supplier-code" exact component={SupplierCode} />
+						<Route path="/order-list" exact component={ViewOrderList} />
+						<Route
+							path="order-list/success-order"
+							exact
+							component={SuccessOrder}
+						/>
 
 						<Route
 							path="/sub-categories/item-info/:id"
 							exact
 							component={ItemInfo}
 						/>
-						<Route path="/sub-categories/:id" exact component={SubCategories} />
-						<Route path="/suggest-product" exact component={SuggestProduct} />
-						<Route path="/supplier-code" exact component={SupplierCode} />
-                        <Route
-							path="order-list/success-order"
-							exact
-							component={SuccessOrder}
-						/>
-                     
 					</Switch>
 					<Footer />
 					<Navbar />

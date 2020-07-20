@@ -5,7 +5,7 @@
 
   #chooseType{
     width:200px;
-    margin-left: 6em;
+    margin-left: 16em;
   }
 
 
@@ -27,12 +27,12 @@
 
 
     .reportContainer{
-        width: 500px;
-        height: 100px;
         position: absolute;
-        left: 40%;
+        left: 20%;
         top:7%;
+        height:110%;
         margin-left: -50px;
+        padding-bottom: 0%;
         padding:2%;
         background-color:rgb(183, 234, 238); 
         border-radius: 10%;

@@ -31,3 +31,15 @@ body {
     border-radius: 10%;
   }
 
+  .gridBtns{
+    display: grid;
+    grid-template-columns: auto auto auto;  
+  }
+
+.priceSpan{
+  margin-left: 10px;
+}
+
+.readonlyWidth{
+  width:80px;
+}

@@ -15,20 +15,7 @@ class SubCategories extends Component {
 		};
 	}
 
-	//save products to local storage
-
-	// setData() {
-	// 	let obj = { id: 1, item: "pepsi" };
-	// 	localStorage.setItem("myData", JSON.stringify(obj));
-	// 	sessionStorage.setItem("mySessionStorageData", JSON.stringify(obj));
-	// }
-
-	// getData() {
-	// 	let data = sessionStorage.getItem("mySessionStorageData");
-	// 	data = JSON.parse(data);
-	// 	console.log(data.item);
-	// }
-
+	
 	//fetching the data
 	getSubCategories = () => {
 		axios

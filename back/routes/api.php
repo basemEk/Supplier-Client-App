@@ -52,7 +52,7 @@ Route::delete('/contact/{id}', 'ContactController@destroy');
 
 Route::get('/item/info','ItemInfoController@index');
 Route::get('/item/info/{id}','ItemInfoController@show');
-Route::post('/item/info/create','ItemtInfoController@store');
+Route::post('/item/info/create','ItemtInfoController@store');    //check
 Route::put('/item/info/{id}', 'ItemInfoController@update' );
 Route::delete('/item/info/{id}', 'ItemInfoController@destroy');
 
@@ -64,6 +64,18 @@ Route::get('/ordered/item/{id}','OrderedItemController@show');
 Route::post('/ordered/item/create','OrderedItemController@store');
 Route::put( '/ordered/item/{id}', 'OrderedItemController@update' );
 Route::delete('/ordered/item/{id}', 'OrderedItemController@destroy');
+
+
+////////////test//////////////
+
+Route::get('/test','TestController@index');
+Route::get('/test{id}','TestController@show');
+Route::post('/test','TestController@store');
+Route::put( '/test/{id}', 'TestController@update' );
+Route::delete('/test/{id}', 'TestController@destroy');
+
+///////////////////////
+
 
 
 Route::get('/order/history','OrderHistoryController@index');

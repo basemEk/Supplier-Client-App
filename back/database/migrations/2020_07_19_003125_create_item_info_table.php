@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SubInfo extends Migration
+class CreateItemInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class SubInfo extends Migration
      */
     public function up()
     {
-        Schema::create('sub_info', function (Blueprint $table) {
+        //
+        Schema::create('item_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('item_info_id');
-            $table->foreign('item_info_id')->references('id')->on('item_info');
-            $table->unsignedInteger('sub_categories_id');
-            $table->foreign('sub_categories_id')->references('id')->on('sub_categories');
+            $table->text('title');
+            $table->text('image');
+            $table->text('description');
+            $table->double('price_lbp');
+            $table->double('price_dollar');
+            $table->integer('minimum_quantity');
             $table->timestamps();
         });
     }
@@ -30,6 +33,8 @@ class SubInfo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_info');
+        //
+        Schema::dropIfExists('item_info');
+
     }
 }

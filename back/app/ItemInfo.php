@@ -8,7 +8,7 @@ use App\SubCategory;
 class ItemInfo extends Model
 {
     protected $table = 'item_info';
-    protected $fillable = ['title', 'image', 'description', 'price_lbp', 'minimum_quality'];
+    protected $fillable = ['title', 'image', 'description', 'price_lbp','price_dollar','minimum_quality'];
     
         public function sub_categories()
         {
