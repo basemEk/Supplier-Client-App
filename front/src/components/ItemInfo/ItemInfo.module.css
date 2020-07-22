@@ -43,3 +43,12 @@ body {
 .readonlyWidth{
   width:80px;
 }
+
+.orderGrid{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.orderWidth{
+  width:80px;
+}

@@ -5,11 +5,13 @@ import classes from "./ItemInfo.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 class ItemInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			itemData: null,
+			item_quantity: 0,
 		};
 	}
 
@@ -18,7 +20,11 @@ class ItemInfo extends Component {
 		axios
 			.get(`${process.env.REACT_APP_BACKEND_URL}/api/item/info/${id}`)
 			.then((res) => {
-				this.setState({ itemData: res.data.data });
+				console.log(res.data.data);
+				this.setState({
+					itemData: res.data.data,
+					item_quantity: res.data.data.minimum_quantity,
+				});
 			});
 	};
 
@@ -26,10 +32,42 @@ class ItemInfo extends Component {
 		this.getProductInfo(this.props.match.params.id);
 	}
 
-	addToCart=()=>{
-        this.props.OrederID(this.state.data);
-        this.props.history.push("/add-to-cart");
-        }
+	addItem = (e) => {
+		e.preventDefault();
+		const item = {
+			quantity: this.state.item_quantity,
+			available: true,
+			item_info_id: this.props.match.params.id,
+			title: this.state.itemData.title,
+			price: this.state.itemData.price_lbp,
+			total: this.state.itemData.price_lbp * this.state.item_quantity,
+		};
+		const order = localStorage.getItem("order");
+		if (order === null) {
+			localStorage.setItem("order", JSON.stringify([item]));
+		} else {
+			let available_in_the_order = false;
+			const order_array = JSON.parse(order).map((currrent_item) => {
+				if (item.item_info_id === currrent_item.item_info_id) {
+					available_in_the_order = true;
+					return {
+						...item,
+						quantity: this.state.item_quantity,
+						title: this.state.itemData.title,
+						price: this.state.itemData.price_lbp,
+					};
+				} else {
+					return currrent_item;
+				}
+			});
+
+			if (available_in_the_order) {
+				localStorage.setItem("order", JSON.stringify([...order_array]));
+			} else {
+				localStorage.setItem("order", JSON.stringify([...order_array, item]));
+			}
+		}
+	};
 
 	render() {
 		return (
@@ -50,35 +88,62 @@ class ItemInfo extends Component {
 								<h2 className={classes.h2}>{this.state.itemData.title}</h2>
 								<p>{this.state.itemData.description}</p>
 
-                                <div>
-                                <h4 className={classes.h4}>{this.state.itemData.price_lbp}</h4>
-                                <span className={classes.priceSpan}>LBP</span>
-                                </div>
-								
-								<br />
-								<br />
+								<div>
+									<h4 className={classes.h4}>
+										{this.state.itemData.price_lbp}
+									</h4>
+									<span className={classes.priceSpan}>LBP</span>
+								</div>
 
-                                <div>
-								<p>Minimum Ordered Quantity:</p>
-								<input
-									type="text"
-									readOnly
-                                    value={this.state.itemData.minimum_quantity}
-                                    className={classes.readonlyWidth} 
-								/>
-                                <span>pcs</span>
-                                </div>
+								<br />
+								<br />
+								<div className={classes.orderGrid}>
+									<div>
+										<p>Minimum Ordered Quantity:</p>
+										<input
+											type="text"
+											readOnly
+											value={this.state.itemData.minimum_quantity}
+											className={classes.readonlyWidth}
+										/>
+										<span>pcs</span>
+									</div>
+									<div>
+										<p>Enter Quantity:</p>
+										<input
+											name="order"
+											type="number"
+											onChange={this.handleChange}
+											className={classes.orderWidth}
+											min={this.state.itemData.minimum_quantity}
+											value={this.state.item_quantity}
+											onChange={(e) =>
+												this.setState({ item_quantity: e.target.value })
+											}
+										/>
+										<span>pcs</span>
+									</div>
+								</div>
+
 								<br />
 								<br />
 								<div className={classes.gridBtns}>
-                                <div>
-									<Button onClick={() => this.addToCart()}>Add to Cart</Button>
-								</div>
+									<div>
+										<Button onClick={(e) => this.addItem(e)}>
+											Add to Cart
+										</Button>
+									</div>
+
 									<Link to="/home">
 										<div>
 											<Button variant="primary">Continue Shopping</Button>
 										</div>
-									</Link>									
+									</Link>
+									<Link to="/view-order-list">
+										<div>
+											<Button>View Order List</Button>
+										</div>
+									</Link>
 								</div>
 							</div>
 						</>

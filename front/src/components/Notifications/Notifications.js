@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import classes from "./Notifications.module.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 
 class Notifications extends Component {

@@ -40,7 +40,7 @@ class App extends React.Component {
 						<Route path="/sub-categories/:id" exact component={SubCategories} />
 						<Route path="/suggest-product" exact component={SuggestProduct} />
 						<Route path="/supplier-code" exact component={SupplierCode} />
-						<Route path="/order-list" exact component={ViewOrderList} />
+						<Route path="/view-order-list" exact component={ViewOrderList} />
 						<Route
 							path="order-list/success-order"
 							exact

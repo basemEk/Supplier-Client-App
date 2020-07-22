@@ -52,7 +52,7 @@ Route::delete('/contact/{id}', 'ContactController@destroy');
 
 Route::get('/item/info','ItemInfoController@index');
 Route::get('/item/info/{id}','ItemInfoController@show');
-Route::post('/item/info/create','ItemtInfoController@store');    //check
+Route::post('/item/info/create','ItemInfoController@store');    
 Route::put('/item/info/{id}', 'ItemInfoController@update' );
 Route::delete('/item/info/{id}', 'ItemInfoController@destroy');
 

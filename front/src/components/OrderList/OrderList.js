@@ -8,7 +8,7 @@ class OrderList extends Component {
 		return (
 			<>
 				<div className={classes.notiDiv}>
-					<h2 className={classes.h2}>Notifications</h2>
+					<h2 className={classes.h2}>Order List</h2>
 					<br />
 					<br />
 

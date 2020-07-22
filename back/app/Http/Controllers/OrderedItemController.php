@@ -88,7 +88,7 @@ class OrderedItemController extends Controller
      */
     public function show($id)
     {
-        $ordered_item = OrderedItem::find($id);
+        $ordered_item = OrderedItem::where('item_info_id', $id)->first();
 
         if (!$ordered_item) {
             return response()->json([

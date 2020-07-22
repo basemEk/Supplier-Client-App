@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import "./suggest.css";
 
+
 class Suggest extends Component {
 	constructor(props) {
 		super(props);
@@ -93,14 +94,14 @@ class Suggest extends Component {
 								onClick={() => this.fRemove(i)}
 								className="myListButton"
 							>
-								remove{" "}
+								remove
 							</Button>
 							<Button
 								variant="primary"
 								onClick={() => this.fEdit(i)}
 								className="myListButton"
 							>
-								edit{" "}
+								edit
 							</Button>
 						</li>
 					))}
