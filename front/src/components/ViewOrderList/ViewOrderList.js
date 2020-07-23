@@ -8,8 +8,12 @@ class ViewOrderList extends Component {
 		super(props);
 		this.state = {
 			data: true,
+			EditInput: "",
+			isEdit: null,
+			save: false
 		};
 	}
+
 
 	RemoveBtn = (item_info_id) => {
 		// debugger;
@@ -30,10 +34,44 @@ class ViewOrderList extends Component {
 		}
 		this.setState({
 			data: !this.state.data,
+			isEdit: null,
 		});
 	};
 
-	
+
+	SaveBtn = (event) => {
+		const order = localStorage.getItem("order");
+		// event.preventDefault();
+		const item = {
+			quantity: this.item_quantity,
+			item_info_id: this.props.match.params.id,
+		};
+		this.setState({
+			save: true
+		})
+        // this.setState({
+		// 	isEdit: value.item_info_id,
+		// 	// isEdit: e.target.value,
+		// 	EditInput: value.quantity,
+		// });
+
+	};
+
+
+
+	EditBtn = (value) => {
+		// console.log("bb",value.item_info_id)
+		this.setState({
+			isEdit: value.item_info_id,
+			EditInput: value.quantity,
+		});
+	};
+
+	componentDidMount() {
+		const orders = localStorage.getItem("order");
+		console.log(orders);
+	}
+
 	render() {
 		return (
 			<div className={classes.shoppingList}>
@@ -52,19 +90,51 @@ class ViewOrderList extends Component {
 									{console.log(value)}
 									<tr>
 										<td>{value.title}</td>
-										<td>{value.quantity}</td>
+										<td>
+											{this.state.isEdit == value.item_info_id ? (
+												<input
+													value={this.state.EditInput}
+													min={this.state.EditInput}
+													type="number"
+													onChange={(e) =>
+														this.setState({ EditInput: e.target.value })
+													}
+												/>
+											) : (
+												value.quantity
+											)}
+										</td>
 										<td>{value.price}</td>
 										<td>{value.price * value.quantity}</td>
 										<td className={classes.tdButton}>
 											<div>
-												<Button variant="primary">Edit</Button>
+												<Button
+													variant="primary"
+													onClick={() => this.SaveBtn(value)}
+												>
+													Save
+												</Button>
 											</div>
-											<Button
-												variant="danger"
-												onClick={() => this.RemoveBtn(value.item_info_id)}
-											>
-												Remove
-											</Button>
+											<div>
+												{this.state.isEdit == null ? (
+													<Button
+														variant="warning"
+														onClick={() => this.EditBtn(value)}
+													>
+														Edit
+													</Button>
+												) : (
+													""
+												)}
+											</div>
+											<div>
+												<Button
+													variant="danger"
+													onClick={() => this.RemoveBtn(value.item_info_id)}
+												>
+													Remove
+												</Button>
+											</div>
 										</td>
 									</tr>
 								</>
@@ -76,8 +146,6 @@ class ViewOrderList extends Component {
 						</div>
 					</div>
 				</form>
-				{/* ${item.price_LBP}
-        ${item.price_LBP * item.count} */}
 			</div>
 		);
 	}

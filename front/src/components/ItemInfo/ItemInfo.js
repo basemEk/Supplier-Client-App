@@ -33,6 +33,7 @@ class ItemInfo extends Component {
 	}
 
 	addItem = (e) => {
+		console.log("add")
 		e.preventDefault();
 		const item = {
 			quantity: this.state.item_quantity,
@@ -43,8 +44,11 @@ class ItemInfo extends Component {
 			total: this.state.itemData.price_lbp * this.state.item_quantity,
 		};
 		const order = localStorage.getItem("order");
-		if (order === null) {
+		console.log("initial", order)
+		if (order == null) {
+			console.log('undef')
 			localStorage.setItem("order", JSON.stringify([item]));
+			console.log('here', localStorage.getItem("order"))
 		} else {
 			let available_in_the_order = false;
 			const order_array = JSON.parse(order).map((currrent_item) => {
@@ -60,7 +64,7 @@ class ItemInfo extends Component {
 					return currrent_item;
 				}
 			});
-
+			console.log('order_array', order_array)
 			if (available_in_the_order) {
 				localStorage.setItem("order", JSON.stringify([...order_array]));
 			} else {
@@ -68,6 +72,8 @@ class ItemInfo extends Component {
 			}
 		}
 	};
+
+
 
 	render() {
 		return (
