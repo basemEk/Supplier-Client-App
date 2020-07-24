@@ -10,10 +10,9 @@ class ViewOrderList extends Component {
 			data: true,
 			EditInput: "",
 			isEdit: null,
-			save: false
+			save: false,
 		};
 	}
-
 
 	RemoveBtn = (item_info_id) => {
 		// debugger;
@@ -38,7 +37,6 @@ class ViewOrderList extends Component {
 		});
 	};
 
-
 	SaveBtn = (event) => {
 		const order = localStorage.getItem("order");
 		// event.preventDefault();
@@ -47,17 +45,14 @@ class ViewOrderList extends Component {
 			item_info_id: this.props.match.params.id,
 		};
 		this.setState({
-			save: true
-		})
-        // this.setState({
+			save: true,
+		});
+		// this.setState({
 		// 	isEdit: value.item_info_id,
 		// 	// isEdit: e.target.value,
 		// 	EditInput: value.quantity,
 		// });
-
 	};
-
-
 
 	EditBtn = (value) => {
 		// console.log("bb",value.item_info_id)

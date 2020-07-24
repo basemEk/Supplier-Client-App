@@ -165,4 +165,17 @@ class OrderHistoryController extends Controller
             ], 500);
         }
     }
+
+
+    public function getOrderDetailsByUserID($user_id)
+    {
+        $orders = OrderHistory::where('client_info_id', $user_id)->with('supplier')->with('items')->get()->all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $orders
+        ]);
+
+    }
+
 }

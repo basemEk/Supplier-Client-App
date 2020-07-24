@@ -4,82 +4,91 @@ import { Button } from "react-bootstrap";
 import classes from "./Notifications.module.css";
 import axios from "axios";
 
-
 class Notifications extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			supplierInfo: null,
+			orders: [],
 		};
 	}
- 
+
 	getSupplierInfo = (id) => {
-		console.log(`${process.env.REACT_APP_BACKEND_URL}/api/supplier/info/${id}`);
+		console.log(
+			`${process.env.REACT_APP_BACKEND_URL}/api/order/history/details/${id}`
+		);
 		axios
-			.get(`${process.env.REACT_APP_BACKEND_URL}/api/supplier/info/${id}`)
+			.get(
+				`${process.env.REACT_APP_BACKEND_URL}/api/order/history/details/${id}`
+			)
 			.then((res) => {
-				console.log(res.data.data);
-				this.setState({ supplierInfo: res.data.data });
+				//console.log(res.data.data)
+				debugger;
+				this.setState({ orders: res.data.data, flag: true });
 			});
 	};
 
-	componentDidMount() {
-		this.getSupplierInfo(this.props.match.params.id);
-	}
+	componentDidMount = () => {
+		////id must be given by props later on
+		this.getSupplierInfo(1);
+	};
 
+	
 	render() {
 		return (
 			<>
-			    {this.state.supplierInfo !== null ? (
+				{this.state.orders.map((order) => {
+					return (
+						<div className={classes.notiDiv}>
+							<h2 className={classes.h2}>Notifications</h2>
+							<br />
+							<br />
+							<div className={classes.supplierInfo}>
+								{/* <p>{this.state.supplierInfo}</p> */}
+								<br />
+								<p>Supplier Name: {order.supplier.supplier_name}</p>
+								<br />
+								<p>Supplier Email: {order.supplier.email}</p>
+								<br />
+								<p>Supplier Phone Number: {order.supplier.phone}</p>
+								<br />
+								<p>Supplier Company: {order.supplier.company}</p>
+								<br />
+							</div>
 
-				 <div className={classes.notiDiv}>
-					<h2 className={classes.h2}>Notifications</h2><br/><br/>
-					<div className={classes.supplierInfo}>
-					<p>{this.state.supplierInfo.supplier.name}</p><br/>
-					<p>Supplier Email:</p><br/>
-					<p>Supplier Phone Number:</p><br/>
-					</div>
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th></th>
+										<th>Available Items</th>
+										<th>Quantity</th>
+										<th>Message from Supplier</th>
+									</tr>
+								</thead>
+								<tbody>
+									{order.items.map((item) => {
+										return (
+											<tr>
+												<td>{item.id}</td>
+												<td>{item.available}</td>
+												<td>{item.quantity}</td>
+												<td></td>
+											</tr>
+										);
+									})}
 
-					<Table striped bordered hover>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Available Items</th>
-								<th>Quantity</th>
-								<th>Message from Supplier</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</Table>
-					<Button variant="primary" className={classes.btn}>Confirm Order</Button>
-				</div>
-				) : null}
-
+			
+								</tbody>
+							</Table>
+							<Button variant="primary" className={classes.btn}>
+								Confirm Order
+							</Button>
+						</div>
+					);
+				})}
 			</>
 		);
-
-		
 	}
-	
 }
+
 
 export default Notifications;

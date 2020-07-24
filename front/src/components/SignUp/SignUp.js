@@ -4,7 +4,6 @@ import classes from "./SignUp.module.css";
 import axios from "axios";
 
 
-
 class Validate extends Component {
 	constructor(props) {
 		super(props);
@@ -18,21 +17,23 @@ class Validate extends Component {
 		};
 	}
 
+
 	handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post("http://127.0.0.1:8000/api/register", {
+			.post(`${process.env.REACT_APP_BACKEND_URL}/api/register`
+			, {
 				name: this.state.firstName,
 				email: this.state.email,
 				password: this.state.password,
 			})
 			.then((res) => {
-				console.log("here");
 				localStorage.setItem("token", res.data.access_token);
 				this.props.history.push("/");
 			})
 			.catch((err) => console.log(err));
 	};
+
 
 	handleChangeFirstName = (e) => {
 		e.preventDefault();
@@ -40,24 +41,32 @@ class Validate extends Component {
 			firstName: e.target.value,
 		});
 	};
+
+
 	handleChangeLastName = (e) => {
 		e.preventDefault();
 		this.setState({
 			lastName: e.target.value,
 		});
 	};
+
+
 	handleChangeEmail = (e) => {
 		e.preventDefault();
 		this.setState({
 			email: e.target.value,
 		});
 	};
+
+
 	handleChangePassword = (e) => {
 		e.preventDefault();
 		this.setState({
 			password: e.target.value,
 		});
 	};
+
+
 	handleChangePhone = (e) => {
 		e.preventDefault();
 		this.setState({
@@ -65,9 +74,10 @@ class Validate extends Component {
 		});
 	};
 
+
 	render() {
 		return (
-			<>
+			<div className={classes.signupWrappercontact}>
 				<div className={classes.signupWrapper}>
 					<form onSubmit={this.handleSubmit} className={classes.signupForm}>
 						<h2 className={classes.signUp}>Sign Up</h2>
@@ -103,6 +113,7 @@ class Validate extends Component {
 							</div>
 							<br />
 						</div>
+						<div>
 						<label>Email Address:</label>
 						<br />
 						<input
@@ -116,8 +127,10 @@ class Validate extends Component {
 						<div style={{ color: "red", fontSize: 12 }}>
 							{this.state.emailError}
 						</div>
+						</div>
 						<br />
 
+                        <div>
 						<label>Password:</label>
 						<br />
 						<input
@@ -131,9 +144,10 @@ class Validate extends Component {
 						<div style={{ color: "red", fontSize: 12 }}>
 							{this.state.passwordError}
 						</div>
+						</div>
 						<br />
 
-						{/* 
+						<div>
                         <label>Confirm Password:</label>
                         <br />
                         <input
@@ -144,12 +158,14 @@ class Validate extends Component {
                             className={classes.formControl}
                             placeholder="Retype you password"
                             onChange={this.handleChange}
-                        /> */}
-						{/* <div style={{ color: "red", fontSize: 12 }}>
+                        />
+						<div style={{ color: "red", fontSize: 12 }}>
                             {this.state.confirmPasswordError}
-                        </div> */}
+                        </div>
+						</div>
 						<br />
 
+                        <div>
 						<label>Phone Number</label>
 						<br />
 						<input
@@ -164,18 +180,21 @@ class Validate extends Component {
 						<div style={{ color: "red", fontSize: 12 }}>
 							{this.state.phoneError}
 						</div>
+						</div>
 						<br />
 
-						<input type="submit" value="Submit" className={classes.btn} />
+						<input type="submit" value="Submit" className={classes.btn} /><br/><br/>
 
 						<p className="forgot-password text-right">
 							Already registered <Link to="/">Sign in?</Link>
 						</p>
 					</form>
 				</div>
-			</>
+				</div>
+			
 		);
 	}
 }
+
 
 export default withRouter(Validate);

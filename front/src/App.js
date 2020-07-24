@@ -8,6 +8,7 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import History from "./components/History/History";
 import ItemInfo from "./components/ItemInfo/ItemInfo";
 import Notifications from "./components/Notifications/Notifications";
+import CC from './components/Notifications/Notifications'
 import OrderList from "./components/OrderList/OrderList";
 import Schedule from "./components/Schedule/Schedule";
 import SignIn from "./components/SignIn/SignIn";
@@ -28,7 +29,7 @@ class App extends React.Component {
 			<>
 				<div className="app-content">
 					<Switch>
-						<Route path="/" exact component={SignIn} />
+						<Route path="//" exact component={SignIn} />
 						<Route path="/sign-up" exact component={SignUp} />
 						<Route path="/contact-us" exact component={ContactUs} />
 						<Route path="/history" exact component={History} />

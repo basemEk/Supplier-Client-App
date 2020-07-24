@@ -83,7 +83,7 @@ Route::get('/order/history/{id}','OrderHistoryController@show');
 Route::post('/order/history/create','OrderHistoryController@store');
 Route::put('/order/history/{id}', 'OrderHistoryController@update' );
 Route::delete('/order/history/{id}', 'OrderHistoryController@destroy');
-
+Route::get('/order/history/details/{user_id}', 'OrderHistoryController@getOrderDetailsByUserID');
 
 Route::get('/sub/info','SubInfoController@index');
 Route::get('/sub/info/{id}','SubInfoController@show');
