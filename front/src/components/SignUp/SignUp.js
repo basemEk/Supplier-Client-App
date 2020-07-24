@@ -26,6 +26,7 @@ class Validate extends Component {
 				name: this.state.firstName,
 				email: this.state.email,
 				password: this.state.password,
+				confirmPassword: this.state.confirmPassword
 			})
 			.then((res) => {
 				localStorage.setItem("token", res.data.access_token);
@@ -63,6 +64,13 @@ class Validate extends Component {
 		e.preventDefault();
 		this.setState({
 			password: e.target.value,
+		});
+	};
+
+	handleChangePassword = (e) => {
+		e.preventDefault();
+		this.setState({
+			confirmPassword: e.target.value,
 		});
 	};
 
@@ -157,7 +165,7 @@ class Validate extends Component {
                             value={this.state.confirmPassword}
                             className={classes.formControl}
                             placeholder="Retype you password"
-                            onChange={this.handleChange}
+                            onChange={(e) => this.handleChangePassword(e)}
                         />
 						<div style={{ color: "red", fontSize: 12 }}>
                             {this.state.confirmPasswordError}
