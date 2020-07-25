@@ -29,7 +29,7 @@ class App extends React.Component {
 			<>
 				<div className="app-content">
 					<Switch>
-						<Route path="//" exact component={SignIn} />
+						<Route path="/" exact component={SignIn} />
 						<Route path="/sign-up" exact component={SignUp} />
 						<Route path="/contact-us" exact component={ContactUs} />
 						<Route path="/history" exact component={History} />

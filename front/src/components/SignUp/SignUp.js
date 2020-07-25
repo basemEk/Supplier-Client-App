@@ -13,6 +13,7 @@ class Validate extends Component {
 			email: "",
 			password: "",
 			confirmPassword: "",
+			confirmPasswordError: "",
 			phone: "",
 		};
 	}
@@ -67,12 +68,13 @@ class Validate extends Component {
 		});
 	};
 
-	handleChangePassword = (e) => {
+
+	handleChangeConfirmPassword = (e) =>{
 		e.preventDefault();
 		this.setState({
 			confirmPassword: e.target.value,
 		});
-	};
+	}
 
 
 	handleChangePhone = (e) => {
@@ -165,7 +167,7 @@ class Validate extends Component {
                             value={this.state.confirmPassword}
                             className={classes.formControl}
                             placeholder="Retype you password"
-                            onChange={(e) => this.handleChangePassword(e)}
+                            onChange={(e) => this.handleChangeConfirmPassword(e)}
                         />
 						<div style={{ color: "red", fontSize: 12 }}>
                             {this.state.confirmPasswordError}

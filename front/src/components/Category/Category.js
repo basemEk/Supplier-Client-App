@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import classes from "./Category.module.css";
 import axios from "axios";
 
@@ -31,6 +31,8 @@ class Category extends Component {
 	render() {
 		return (
 			<>
+			{localStorage.getItem('token')==null?this.props.history.push('/'):(
+			
 				<div className={classes.container}>
 					<div className={classes.flexCategories}>
 						{this.state.categories.map((category) => { 
@@ -53,10 +55,12 @@ class Category extends Component {
 						})}
 					</div>
 				</div>
+			)}
 			</>
 		);
+					
 	}
 }
 
 
-export default Category;
+export default withRouter(Category);
