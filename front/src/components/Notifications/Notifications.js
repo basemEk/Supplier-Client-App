@@ -22,13 +22,12 @@ class Notifications extends Component {
 			)
 			.then((res) => {
 				//console.log(res.data.data)
-				debugger;
-				this.setState({ orders: res.data.data, flag: true });
+				// debugger;
+				this.setState({ orders: res.data.data });
 			});
 	};
 
 	componentDidMount = () => {
-		////id must be given by props later on
 		this.getSupplierInfo(1);
 	};
 

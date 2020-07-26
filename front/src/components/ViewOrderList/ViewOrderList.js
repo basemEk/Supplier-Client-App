@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import classes from "./ViewOrderList.module.css";
 import { Button } from "react-bootstrap";
 
-
 class ViewOrderList extends Component {
 	constructor(props) {
 		super(props);
@@ -11,6 +10,7 @@ class ViewOrderList extends Component {
 			EditInput: "",
 			isEdit: null,
 			save: false,
+			item_quantity: 0,
 		};
 	}
 
@@ -37,15 +37,14 @@ class ViewOrderList extends Component {
 		});
 	};
 
-	SaveBtn = (event) => {
+	SaveBtn = (res) => {
 		const order = localStorage.getItem("order");
-		// event.preventDefault();
 		const item = {
-			quantity: this.item_quantity,
+			quantity: this.state.item_quantity,
 			item_info_id: this.props.match.params.id,
 		};
 		this.setState({
-			save: true,
+			item_quantity: res.data.data.minimum_quantity,
 		});
 		// this.setState({
 		// 	isEdit: value.item_info_id,
@@ -55,7 +54,8 @@ class ViewOrderList extends Component {
 	};
 
 	EditBtn = (value) => {
-		// console.log("bb",value.item_info_id)
+		console.log("bb",value.item_info_id)
+		const order = localStorage.getItem("order");
 		this.setState({
 			isEdit: value.item_info_id,
 			EditInput: value.quantity,
@@ -99,18 +99,10 @@ class ViewOrderList extends Component {
 												value.quantity
 											)}
 										</td>
-										<td>{value.price}</td>
-										<td>{value.price * value.quantity}</td>
+										<td>{value.price}LBP</td>
+										<td>{value.price * value.quantity}LBP</td>
 										<td className={classes.tdButton}>
-											<div>
-												<Button
-													variant="primary"
-													onClick={() => this.SaveBtn(value)}
-												>
-													Save
-												</Button>
-											</div>
-											<div>
+										<div>
 												{this.state.isEdit == null ? (
 													<Button
 														variant="warning"
@@ -122,6 +114,15 @@ class ViewOrderList extends Component {
 													""
 												)}
 											</div>
+											<div>
+												<Button
+													variant="primary"
+													onClick={() => this.SaveBtn(value)}
+												>
+													Save
+												</Button>
+											</div>
+											
 											<div>
 												<Button
 													variant="danger"

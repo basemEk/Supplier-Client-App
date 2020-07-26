@@ -32,7 +32,6 @@ class Category extends Component {
 		return (
 			<>
 			{localStorage.getItem('token')==null?this.props.history.push('/'):(
-			
 				<div className={classes.container}>
 					<div className={classes.flexCategories}>
 						{this.state.categories.map((category) => { 
@@ -55,7 +54,7 @@ class Category extends Component {
 						})}
 					</div>
 				</div>
-			)}
+			)} 
 			</>
 		);
 					

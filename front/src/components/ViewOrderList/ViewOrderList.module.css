@@ -8,7 +8,7 @@ th, td{
 
   .shoppingList{
     width: 60%;
-    padding: 12px 20px;
+    padding: 1px 20px;
     margin-left: 300px;
     margin-top: 5%;
     margin-bottom: 4%;
@@ -20,7 +20,7 @@ th, td{
   }
 
   .table{
-    margin-left:4em
+    margin-left:-1em
   }
 
   .btnGrids{

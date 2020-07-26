@@ -3,7 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import classes from "./SignUp.module.css";
 import axios from "axios";
 
-
 class Validate extends Component {
 	constructor(props) {
 		super(props);
@@ -12,22 +11,84 @@ class Validate extends Component {
 			lastName: "",
 			email: "",
 			password: "",
-			confirmPassword: "",
-			confirmPasswordError: "",
 			phone: "",
+			confirmPassword: "",
+			firstNameError:"",
+			lastNameError:"",
+			emailError:"",
+			passwordError:"",
+			confirmPasswordError: "",
+			phoneError:""
+			
 		};
 	}
+
+
+	validate = () => {
+		    let firstNameError="";
+			let lastNameError="";
+			let emailError="";
+			let passwordError="";
+			let confirmPasswordError= "";
+			let phoneError="";
+
+		if (!this.state.email.includes("@") || null) {
+			emailError = "please enter your email";
+		}
+
+		if (!this.state.password) {
+			passwordError = "please enter your password";
+		}
+
+		if (!this.state.firstName) {
+			firstNameError = "please enter your first name";
+		}
+
+		if (!this.state.lastName) {
+			lastNameError = "please enter your last name";
+		}
+
+		if (!this.state.confirmPassword) {
+			confirmPasswordError = "please retype your psssword";
+		}
+
+		if (!this.state.phone) {
+			phoneError = "please enter your phone number";
+		}
+
+		if (emailError || passwordError || confirmPasswordError || firstNameError || lastNameError, phoneError) {
+			this.setState({ emailError, passwordError, confirmPasswordError, firstNameError, lastNameError, phoneError});
+			return false;
+		}
+
+		return true;
+	};
+
+
+	handleSubmit = () => {
+		console.log(this.state)
+		const isValid = this.validate();
+		if (isValid){
+		axios.post('http://127.0.0.1:8000/api/redister', {
+			email:this.state.email,
+			password:this.state.password
+		}).then((res)=>{
+			localStorage.setItem('token', res.data.access_token)
+			this.props.history.push('/supplier-code')
+		})
+	}
+	};
 
 
 	handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/api/register`
-			, {
+			.post(`${process.env.REACT_APP_BACKEND_URL}/api/register`, {
 				name: this.state.firstName,
 				email: this.state.email,
 				password: this.state.password,
-				confirmPassword: this.state.confirmPassword
+				// phone: this.state.phone,
+				// confirmPassword: this.state.confirmPassword,
 			})
 			.then((res) => {
 				localStorage.setItem("token", res.data.access_token);
@@ -36,14 +97,12 @@ class Validate extends Component {
 			.catch((err) => console.log(err));
 	};
 
-
 	handleChangeFirstName = (e) => {
 		e.preventDefault();
 		this.setState({
 			firstName: e.target.value,
 		});
 	};
-
 
 	handleChangeLastName = (e) => {
 		e.preventDefault();
@@ -52,14 +111,12 @@ class Validate extends Component {
 		});
 	};
 
-
 	handleChangeEmail = (e) => {
 		e.preventDefault();
 		this.setState({
 			email: e.target.value,
 		});
 	};
-
 
 	handleChangePassword = (e) => {
 		e.preventDefault();
@@ -68,14 +125,12 @@ class Validate extends Component {
 		});
 	};
 
-
-	handleChangeConfirmPassword = (e) =>{
+	handleChangeConfirmPassword = (e) => {
 		e.preventDefault();
 		this.setState({
 			confirmPassword: e.target.value,
 		});
-	}
-
+	};
 
 	handleChangePhone = (e) => {
 		e.preventDefault();
@@ -83,7 +138,6 @@ class Validate extends Component {
 			phone: e.target.value,
 		});
 	};
-
 
 	render() {
 		return (
@@ -124,87 +178,87 @@ class Validate extends Component {
 							<br />
 						</div>
 						<div>
-						<label>Email Address:</label>
-						<br />
-						<input
-							style={{ width: "150%" }}
-							type="text"
-							value={this.state.email}
-							className={classes.formControl}
-							placeholder="example@email.com"
-							onChange={(e) => this.handleChangeEmail(e)}
-						/>
-						<div style={{ color: "red", fontSize: 12 }}>
-							{this.state.emailError}
-						</div>
-						</div>
-						<br />
-
-                        <div>
-						<label>Password:</label>
-						<br />
-						<input
-							style={{ width: "150%" }}
-							type="password"
-							value={this.state.password}
-							className={classes.formControl}
-							placeholder="Enter password"
-							onChange={(e) => this.handleChangePassword(e)}
-						/>
-						<div style={{ color: "red", fontSize: 12 }}>
-							{this.state.passwordError}
-						</div>
+							<label>Email Address:</label>
+							<br />
+							<input
+								style={{ width: "150%" }}
+								type="text"
+								value={this.state.email}
+								className={classes.formControl}
+								placeholder="example@email.com"
+								onChange={(e) => this.handleChangeEmail(e)}
+							/>
+							<div style={{ color: "red", fontSize: 12 }}>
+								{this.state.emailError}
+							</div>
 						</div>
 						<br />
 
 						<div>
-                        <label>Confirm Password:</label>
-                        <br />
-                        <input
-                            style={{ width: "150%" }}
-                            type="password"
-                            name="confirmPassword"
-                            value={this.state.confirmPassword}
-                            className={classes.formControl}
-                            placeholder="Retype you password"
-                            onChange={(e) => this.handleChangeConfirmPassword(e)}
-                        />
-						<div style={{ color: "red", fontSize: 12 }}>
-                            {this.state.confirmPasswordError}
-                        </div>
+							<label>Password:</label>
+							<br />
+							<input
+								style={{ width: "150%" }}
+								type="password"
+								value={this.state.password}
+								className={classes.formControl}
+								placeholder="Enter password"
+								onChange={(e) => this.handleChangePassword(e)}
+							/>
+							<div style={{ color: "red", fontSize: 12 }}>
+								{this.state.passwordError}
+							</div>
 						</div>
 						<br />
 
-                        <div>
-						<label>Phone Number</label>
-						<br />
-						<input
-							style={{ width: "150%" }}
-							type="text"
-							name="phone"
-							value={this.state.phone}
-							placeholder="example: (+961)-03-456-789"
-							className={classes.formNumber}
-							onChange={(e) => this.handleChangePhone(e)}
-						/>
-						<div style={{ color: "red", fontSize: 12 }}>
-							{this.state.phoneError}
-						</div>
+						<div>
+							<label>Confirm Password:</label>
+							<br />
+							<input
+								style={{ width: "150%" }}
+								type="password"
+								name="confirmPassword"
+								value={this.state.confirmPassword}
+								className={classes.formControl}
+								placeholder="Retype you password"
+								onChange={(e) => this.handleChangeConfirmPassword(e)}
+							/>
+							<div style={{ color: "red", fontSize: 12 }}>
+								{this.state.confirmPasswordError}
+							</div>
 						</div>
 						<br />
 
-						<input type="submit" value="Submit" className={classes.btn} /><br/><br/>
+						<div>
+							<label>Phone Number</label>
+							<br />
+							<input
+								style={{ width: "150%" }}
+								type="text"
+								name="phone"
+								value={this.state.phone}
+								placeholder="example: (+961)-03-456-789"
+								className={classes.formNumber}
+								onChange={(e) => this.handleChangePhone(e)}
+							/>
+							<div style={{ color: "red", fontSize: 12 }}>
+								{this.state.phoneError}
+							</div>
+						</div>
+						<br />
+
+						<input type="submit" value="Submit" className={classes.btn} />
+						<br />
+						<br />
 
 						<p className="forgot-password text-right">
 							Already registered <Link to="/">Sign in?</Link>
 						</p>
 					</form>
 				</div>
-				</div>
-			
+			</div>
 		);
 	}
 }
-
 
 export default withRouter(Validate);

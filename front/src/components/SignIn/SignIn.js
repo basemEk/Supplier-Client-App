@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import classes from "./SignIn.module.css";
-import axios from 'axios'
+import axios from 'axios';
 
 
 class Login extends Component {
@@ -49,10 +49,10 @@ constructor(props){
 		}).then((res)=>{
 			localStorage.setItem('token', res.data.access_token)
 			this.props.history.push('/supplier-code')
-
 		})
 	}
 	};
+
 
 	render() {
 		return (
@@ -122,7 +122,7 @@ constructor(props){
 						<p className="forgot-password text-right">
 							<p>
 								<br />
-								If you are new to the Application,{" "}
+								If you are new to the Application,
 								<Link to="/sign-up">Sign up here</Link>
 							</p>
 							Forgot <a href="#">password?</a>

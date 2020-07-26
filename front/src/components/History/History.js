@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import { Form, FormControl } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import classes from "./History.module.css";
 import MyComponent from "../DatePicker/DatePicker";
-
 
 
 class History extends Component {
 	render() {
 		return (
 			<>
+			{localStorage.getItem('token')==null?this.props.history.push('/'):(
+                 <>
 				<h2 className={classes.h2}>History</h2>
-				<div className={classes.searchBar}>
 				
+				<div className={classes.searchBar}>
 					<div>
 						<MyComponent />
 					</div>
@@ -29,10 +31,9 @@ class History extends Component {
 						</Form>
 					</div>
 				</div>
-
+				
 				<hr />
 				<hr />
-
 				<div className={classes.histoDiv}>
 					<h3 className={classes.h3}>Order Invoice</h3>
 					<div className={classes.supplierInfo}>
@@ -91,9 +92,7 @@ class History extends Component {
 						</table>
 					</div>
 				</div>
-
 				<hr />
-
 				<div className={classes.histoDiv}>
 					<h3 className={classes.h3}>Order Invoice</h3>
 					<div className={classes.supplierInfo}>
@@ -152,9 +151,12 @@ class History extends Component {
 						</table>
 					</div>
 				</div>
+				</>
+				)}
 			</>
-		);
-	}
-}
+					);
+				}
+			}
+		
 
-export default History;
+export default withRouter(History);

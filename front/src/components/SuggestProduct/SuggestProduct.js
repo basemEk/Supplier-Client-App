@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import "./suggest.css";
 
 
@@ -14,9 +15,9 @@ class Suggest extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.refs.name.focus();
-	}
+	// componentDidMount() {
+	// 	this.refs.name.focus();
+	// }
 
 	fSubmit = (e) => {
 		e.preventDefault();
@@ -72,6 +73,9 @@ class Suggest extends Component {
 	render() {
 		let datas = this.state.datas;
 		return (
+			<>
+			{localStorage.getItem('token')==null?this.props.history.push('/'):(
+
 			<div className="App">
 				<h2>{this.state.title}</h2>
 				<form ref="myForm" className="myForm">
@@ -107,8 +111,11 @@ class Suggest extends Component {
 					))}
 				</pre>
 			</div>
-		);
-	}
+		)} 
+		</>
+	);
+				
+}
 }
 
-export default Suggest;
+export default withRouter(Suggest);

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import classes from "./ContactUs.module.css";
 import "../ContactUs/ContactUs.module.css";
 
@@ -7,6 +8,7 @@ class ContactUs extends Component {
 	render() {
 		return (
 			<>
+			{localStorage.getItem('token')==null?this.props.history.push('/'):(
 				<div className={classes.contactUsPage}>
 					<section className="bg-contact bg-section" id="contact">
 						<div className="container-fluid">
@@ -83,9 +85,11 @@ class ContactUs extends Component {
 						</div>
 					</section>
 				</div>
+			)} 
+
 			</>
 		);
 	}
 }
 
-export default ContactUs;
+export default withRouter(ContactUs);
