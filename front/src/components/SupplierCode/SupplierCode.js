@@ -10,31 +10,53 @@ import axios from "axios";
 class SupplierCode extends Component {
 	state = {
 		type: "password",
+		supCode: [],
+		code: "",
+		correct: false,
 	};
 
 	//fetching the data
 	getSupplierCode = () => {
+		const token = localStorage.getItem("token");
 		axios
-			.get(`${process.env.REACT_APP_BACKEND_URL}/supplier/code`)
+			.get(`${process.env.REACT_APP_BACKEND_URL}/api/supplier/code`)
 			.then((res) => {
-				this.setState({ type: res.data.data });
+				console.log(res.data.data);
+				this.setState({ supCode: res.data.data });
 			});
 	};
 
-	showHide = (e) => {
-		e.preventDefault();
-		e.stopPropagation();
-		this.setState({
-			type: this.state.type === "text" ? "password" : "text",
+	componentDidMount() {
+		this.getSupplierCode();
+	}
+
+
+	btnAlert = () => {
+		let correct = false;
+		this.state.supCode.map((value) => {
+			if (value.code == this.state.code) {
+				correct = true;
+			}
 		});
-		this.input.focus();
+		if (correct) {
+			alert("Supplier Code Entered Successfully");
+			this.props.history.push("/home");
+		} else alert("Incorrect Supplier Code");
+	};
+
+	inputSupplierCode = (e) => {
+		e.preventDefault();
+		this.setState({
+			code: e.target.value,
+		});
 	};
 
 	render() {
 		return (
 			<>
-			{localStorage.getItem('token')==null?this.props.history.push('/'):(
-				
+				{localStorage.getItem("token") == null ? (
+					this.props.history.push("/")
+				) : (
 					<div className={classes.h3Field}>
 						<h3 className={classes.h3}>Enter Supplier Code</h3>
 						<br />
@@ -45,28 +67,19 @@ class SupplierCode extends Component {
 								inputRef={(ref) => {
 									this.input = ref;
 								}}
+								onChange={(e) => this.inputSupplierCode(e)}
 							/>
 
-							<span
-								className={[
-									classes.visibility,
-									"flaticon-eye",
-									this.state.type === "text"
-										? classes.is_visible
-										: classes.is_hidden,
-								].join(" ")}
-								onClick={this.showHide}
-							></span>
 							<br />
+
 							<Button
 								onClick={(e) => {
 									e.preventDefault();
-									this.getSupplierCode();
+									this.btnAlert();
 								}}
-								variant="primary"
 								className={classes.btn}
 							>
-								Enter
+								Click here
 							</Button>
 						</div>
 					</div>
@@ -76,6 +89,4 @@ class SupplierCode extends Component {
 	}
 }
 
-
 export default withRouter(SupplierCode);
-
