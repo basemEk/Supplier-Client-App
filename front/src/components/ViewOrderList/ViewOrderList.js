@@ -7,7 +7,8 @@ class ViewOrderList extends Component {
 		super(props);
 		this.state = {
 			data: true,
-			EditInput: 0,
+			products: [],
+			EditInput: "",
 			isEdit: null,
 			save: false,
 			item_quantity: 0,
@@ -38,14 +39,13 @@ class ViewOrderList extends Component {
 	};
 
 	SaveBtn = (res) => {
-		console.log("here",res)
+		debugger;
+
 		const order = localStorage.getItem("order");
 		const item = {
-			quantity: this.state.item_quantity,
-			item_info_id: this.props.match.params.id,
+			quantity: this.state.EditInput,
+			item_info_id: res.item_info_id,
 		};
-
-		//converting string to array
 		const new_oder = JSON.parse(order).map((orderItem) => {
 			if (orderItem.item_info_id == item.item_info_id) {
 				orderItem.quantity = item.quantity;
@@ -53,21 +53,20 @@ class ViewOrderList extends Component {
 
 			return orderItem;
 		});
-		//convertinfg to string
 		localStorage.setItem("order", JSON.stringify(new_oder));
 		this.setState({
 			data: !this.state.data,
+			isEdit: null,
 		});
 	};
 
-	
 
 	EditBtn = (value) => {
-		console.log("bb",value);
-		// const order = localStorage.getItem("order");
+		console.log("bb", value.item_info_id);
+		const order = localStorage.getItem("order");
 		this.setState({
 			isEdit: value.item_info_id,
-			// EditInput: this.state.EditInput,
+			EditInput: value.quantity,
 		});
 	};
 
@@ -91,8 +90,7 @@ class ViewOrderList extends Component {
 							</tr>
 							{JSON.parse(localStorage.getItem("order")).map((value, key) => (
 								<>
-									{console.log(value)}
-									<tr>
+									<tr key={key}>
 										<td>{value.title}</td>
 										<td>
 											{this.state.isEdit == value.item_info_id ? (
@@ -101,7 +99,6 @@ class ViewOrderList extends Component {
 													min={this.state.EditInput}
 													type="number"
 													onChange={(e) =>
-														// console.log(e.target.value)
 														this.setState({ EditInput: e.target.value })
 													}
 												/>
