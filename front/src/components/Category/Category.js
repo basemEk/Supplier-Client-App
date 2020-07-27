@@ -5,7 +5,6 @@ import { Link, withRouter } from "react-router-dom";
 import classes from "./Category.module.css";
 import axios from "axios";
 
-
 class Category extends Component {
 	constructor(props) {
 		super(props);
@@ -31,35 +30,35 @@ class Category extends Component {
 	render() {
 		return (
 			<>
-			{localStorage.getItem('token')==null?this.props.history.push('/'):(
-				<div className={classes.container}>
-					<div className={classes.flexCategories}>
-						{this.state.categories.map((category) => { 
-							return (
-								<div key={category.id}>
-									<Card>
-										<Link to={`/sub-categories/${category.id}`}>
-											<Card.Img
-												className={classes.cardImage}
-												variant="top"
-												src={category.image}
-											/>
-										</Link>
-										<Card.Body>
-											<Card.Title>{category.title}</Card.Title>
-										</Card.Body>
-									</Card>
-								</div>
-							);
-						})}
+				{localStorage.getItem("token") == null ? (
+					this.props.history.push("/")
+				) : (
+					<div className={classes.container}>
+						<div className={classes.flexCategories}>
+							{this.state.categories.map((category) => {
+								return (
+									<div key={category.id}>
+										<Card>
+											<Link to={`/sub-categories/${category.id}`}>
+												<Card.Img
+													className={classes.cardImage}
+													variant="top"
+													src={category.image}
+												/>
+											</Link>
+											<Card.Body>
+												<Card.Title>{category.title}</Card.Title>
+											</Card.Body>
+										</Card>
+									</div>
+								);
+							})}
+						</div>
 					</div>
-				</div>
-			)} 
+				)}
 			</>
 		);
-					
 	}
 }
-
 
 export default withRouter(Category);

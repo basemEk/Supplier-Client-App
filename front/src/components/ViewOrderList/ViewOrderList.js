@@ -43,18 +43,38 @@ class ViewOrderList extends Component {
 			quantity: this.state.item_quantity,
 			item_info_id: this.props.match.params.id,
 		};
-		this.setState({
-			item_quantity: res.data.data.minimum_quantity,
+
+		const new_oder = JSON.parse(order).map((orderItem) => {
+			if (orderItem.item_info_id == item.item_info_id) {
+				orderItem.quantity = item.quantity;
+			}
+
+			return orderItem;
 		});
-		// this.setState({
-		// 	isEdit: value.item_info_id,
-		// 	// isEdit: e.target.value,
-		// 	EditInput: value.quantity,
-		// });
+		localStorage.setItem("order", JSON.stringify(new_oder));
+		this.setState({
+			data: !this.state.data,
+		});
 	};
 
+	// SaveBtn = (res) => {
+	// 	const order = localStorage.getItem("order");
+	// 	const item = {
+	// 		quantity: this.state.item_quantity,
+	// 		item_info_id: this.props.match.params.id,
+	// 	};
+	// 	this.setState({
+	// 		item_quantity: res.data.data.minimum_quantity,
+	// 	});
+	// 	// this.setState({
+	// 	// 	isEdit: value.item_info_id,
+	// 	// 	// isEdit: e.target.value,
+	// 	// 	EditInput: value.quantity,
+	// 	// });
+	// };
+
 	EditBtn = (value) => {
-		console.log("bb",value.item_info_id)
+		console.log("bb", value.item_info_id);
 		const order = localStorage.getItem("order");
 		this.setState({
 			isEdit: value.item_info_id,
@@ -102,7 +122,7 @@ class ViewOrderList extends Component {
 										<td>{value.price}LBP</td>
 										<td>{value.price * value.quantity}LBP</td>
 										<td className={classes.tdButton}>
-										<div>
+											<div>
 												{this.state.isEdit == null ? (
 													<Button
 														variant="warning"
@@ -122,7 +142,7 @@ class ViewOrderList extends Component {
 													Save
 												</Button>
 											</div>
-											
+
 											<div>
 												<Button
 													variant="danger"
