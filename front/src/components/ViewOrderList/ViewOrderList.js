@@ -12,6 +12,8 @@ class ViewOrderList extends Component {
 			isEdit: null,
 			save: false,
 			item_quantity: 0,
+			sum: 0,
+			v: 0,
 		};
 	}
 
@@ -60,7 +62,6 @@ class ViewOrderList extends Component {
 		});
 	};
 
-
 	EditBtn = (value) => {
 		console.log("bb", value.item_info_id);
 		const order = localStorage.getItem("order");
@@ -70,12 +71,26 @@ class ViewOrderList extends Component {
 		});
 	};
 
+	submitAlert = () => {
+		alert("Your order has sent successfully to the Supplier");
+	};
+
+	sumFunction = () => {
+		JSON.parse(localStorage.getItem("order")).map(
+			(value, key) => (
+				(this.state.v = value.price * value.quantity),
+				(this.state.sum = this.state.sum + this.state.v)
+			)
+		);
+	};
+
 	componentDidMount() {
 		const orders = localStorage.getItem("order");
 		console.log(orders);
 	}
 
 	render() {
+		this.sumFunction();
 		return (
 			<div className={classes.shoppingList}>
 				<h2>Order List</h2>
@@ -86,7 +101,7 @@ class ViewOrderList extends Component {
 								<th>Name</th>
 								<th>Quantity</th>
 								<th>Price</th>
-								<th>Total</th>
+								<th>Sub Total</th>
 							</tr>
 							{JSON.parse(localStorage.getItem("order")).map((value, key) => (
 								<>
@@ -107,7 +122,9 @@ class ViewOrderList extends Component {
 											)}
 										</td>
 										<td>{value.price}LBP</td>
+
 										<td>{value.price * value.quantity}LBP</td>
+
 										<td className={classes.tdButton}>
 											<div>
 												{this.state.isEdit == null ? (
@@ -144,8 +161,19 @@ class ViewOrderList extends Component {
 							))}
 						</table>
 
-						<div className={classes.btnGrids}>
-							<Button variant="success">Submit</Button>
+						<div className={classes.submitTotalGrid}>
+							<div className={classes.SubmitBtn}>
+								<Button onClick={() => this.submitAlert()} variant="success">
+									Submit
+								</Button>
+							</div>
+							<div className={classes.textT}>
+								<label>
+									<label>
+										<b>Total: {this.state.sum} LBP</b>
+									</label>
+								</label>
+							</div>
 						</div>
 					</div>
 				</form>
