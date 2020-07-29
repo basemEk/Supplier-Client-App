@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import classes from "./ContactUs.module.css";
 import "../ContactUs/ContactUs.module.css";
+import { Button } from "react-bootstrap";
+
 
 
 class ContactUs extends Component {
@@ -24,23 +26,14 @@ class ContactUs extends Component {
 											method="post"
 											className={classes.contactForm}
 										>
+										
 											<div className="form-group has-feedback">
-												<label className="sr-only">First name:</label>
-												<input
-													type="text"
-													name="name"
-													className="form-control"
-													placeholder="First name"
-													required
-												/>
-											</div>
-											<div className="form-group has-feedback">
-												<label className="sr-only">Last name:</label>
+												<label className="sr-only">Name:</label>
 												<input
 													type="text"
 													name="surname"
 													className="form-control"
-													placeholder="Last name"
+													placeholder="Enter full name"
 													required
 												/>
 											</div>
@@ -66,17 +59,18 @@ class ContactUs extends Component {
 													className="form-control"
 													rows={5}
 													id="comment"
-													placeholder="Description"
+													placeholder="Type your message here.."
 													defaultValue={""}
 												/>
 											</div>
-											<div className="contact-buttons pull-left">
-												<input
+											<div className={classes.btnContactGrids}>
+												<Button
 													type="submit"
 													name="submit"
 													defaultValue="Send"
-												/>
-												<input type="reset" defaultValue="Reset" />
+													variant="success"
+												>Submit</Button>
+												<Button type="reset" defaultValue="Reset">Reset</Button>
 											</div>
 										</form>
 									</div>

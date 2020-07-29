@@ -11,6 +11,7 @@ class ViewOrderList extends Component {
 			products: [],
 			EditInput: "",
 			isEdit: null,
+			isCount: null,
 			save: false,
 			item_quantity: 0,
 			sum: 0,
@@ -39,10 +40,12 @@ class ViewOrderList extends Component {
 			data: !this.state.data,
 			isEdit: null,
 		});
+		window.location.reload()
+
 	};
 
+		
 	SaveBtn = (res) => {
-		debugger;
 
 		const order = localStorage.getItem("order");
 		const item = {
@@ -61,7 +64,11 @@ class ViewOrderList extends Component {
 			data: !this.state.data,
 			isEdit: null,
 		});
+
+		window.location.reload()
 	};
+
+
 
 	EditBtn = (value) => {
 		console.log("bb", value.item_info_id);
@@ -78,20 +85,23 @@ class ViewOrderList extends Component {
 
 	sumFunction = () => {
 		JSON.parse(localStorage.getItem("order")).map(
-			(value, key) => (
-				(this.state.v = value.price * value.quantity),
-				(this.state.sum = this.state.sum + this.state.v)
-			)
+			(value, key) => {
+				this.state.v += value.price * value.quantity
+				// console.log("here===>",value)
+				// this.setState({...this.state.v, v:value.price * value.quantity, sum: this.state.sum + this.state.v })
+			}
+
 		);
+		this.setState({v:this.state.v})
 	};
 
 	componentDidMount() {
 		const orders = localStorage.getItem("order");
+		this.sumFunction();
 		console.log(orders);
 	}
 
 	render() {
-		this.sumFunction();
 		return (
 			<div className={classes.shoppingList}>
 				<h2>Order List</h2>
@@ -164,14 +174,16 @@ class ViewOrderList extends Component {
 
 						<div className={classes.submitTotalGrid}>
 							<div className={classes.SubmitBtn}>
+
 								<Button onClick={() => this.submitAlert()} variant="success">
 									Submit
 								</Button>
+	
 							</div>
 							<div className={classes.textT}>
 								<label>
 									<label>
-										<b>Total: {this.state.sum} LBP</b>
+										<b>Total: {this.state.v} LBP</b>
 									</label>
 								</label>
 							</div>
