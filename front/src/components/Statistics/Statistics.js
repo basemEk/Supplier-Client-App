@@ -1,23 +1,25 @@
-import React, { useState } from "react";  //usinig react hooks
+import React, { useState } from "react"; //usinig react hooks
 import { Bar } from "react-chartjs-2";
 import classes from "./Statistics.module.css";
 import Button from "react-bootstrap/Button";
 
-
 const getItems = () => {
 	let a = JSON.parse(localStorage.getItem("order"));
 	let temp = [];
-	a.map((value, key) => temp.push(value.title));
+	if (a !== null) {
+		a.map((value, key) => temp.push(value.title));
+	}
 	return temp;
 };
 
 const getQuantity = () => {
 	let a = JSON.parse(localStorage.getItem("order"));
 	let temp = [];
-	a.map((value, key) => temp.push(value.quantity));
+	if (a !== null) {
+		a.map((value, key) => temp.push(value.quantity));
+	}
 	return temp;
 };
-
 
 const state = {
 	labels: getItems(),
@@ -45,14 +47,13 @@ const state = {
 	],
 };
 
-
 function Reports() {
 	return (
 		<div className={classes.reportContainer}>
 			{console.log(getItems())}
 			<div className={classes.chartsForm}>
 				<div id="form-report">
-					<h2>Items Movements</h2> 
+					<h2>Items Movements</h2>
 					<br />
 
 					<div>
@@ -98,6 +99,5 @@ function Reports() {
 		</div>
 	);
 }
-
 
 export default Reports;
