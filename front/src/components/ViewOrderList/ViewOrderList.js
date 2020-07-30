@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "./ViewOrderList.module.css";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 class ViewOrderList extends Component {
@@ -11,7 +12,6 @@ class ViewOrderList extends Component {
 			products: [],
 			EditInput: "",
 			isEdit: null,
-			isCount: null,
 			save: false,
 			item_quantity: 0,
 			sum: 0,
@@ -40,13 +40,10 @@ class ViewOrderList extends Component {
 			data: !this.state.data,
 			isEdit: null,
 		});
-		window.location.reload()
-
+		window.location.reload();
 	};
 
-		
 	SaveBtn = (res) => {
-
 		const order = localStorage.getItem("order");
 		const item = {
 			quantity: this.state.EditInput,
@@ -65,10 +62,8 @@ class ViewOrderList extends Component {
 			isEdit: null,
 		});
 
-		window.location.reload()
+		window.location.reload();
 	};
-
-
 
 	EditBtn = (value) => {
 		console.log("bb", value.item_info_id);
@@ -84,15 +79,10 @@ class ViewOrderList extends Component {
 	};
 
 	sumFunction = () => {
-		JSON.parse(localStorage.getItem("order")).map(
-			(value, key) => {
-				this.state.v += value.price * value.quantity
-				// console.log("here===>",value)
-				// this.setState({...this.state.v, v:value.price * value.quantity, sum: this.state.sum + this.state.v })
-			}
-
-		);
-		this.setState({v:this.state.v})
+		JSON.parse(localStorage.getItem("order")).map((value, key) => {
+			this.state.v += value.price * value.quantity;
+		});
+		this.setState({ v: this.state.v });
 	};
 
 	componentDidMount() {
@@ -174,11 +164,9 @@ class ViewOrderList extends Component {
 
 						<div className={classes.submitTotalGrid}>
 							<div className={classes.SubmitBtn}>
-
 								<Button onClick={() => this.submitAlert()} variant="success">
 									Submit
 								</Button>
-	
 							</div>
 							<div className={classes.textT}>
 								<label>
@@ -190,10 +178,11 @@ class ViewOrderList extends Component {
 						</div>
 					</div>
 				</form>
+
+				{/* <Link to={`/sub-categories/item-info/${id}`}>Back to Product</Link> */}
 			</div>
 		);
 	}
 }
-
 
 export default ViewOrderList;

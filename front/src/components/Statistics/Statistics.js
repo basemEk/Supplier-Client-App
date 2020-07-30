@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2";
 import classes from "./Statistics.module.css";
 import Button from "react-bootstrap/Button";
 
+
 const getItems = () => {
 	let a = JSON.parse(localStorage.getItem("order"));
 	let temp = [];

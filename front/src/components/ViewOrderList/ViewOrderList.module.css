@@ -51,3 +51,7 @@ th, td{
     background-color: whitesmoke;
     width:250px;
   }
+
+  .total{
+    color:red;
+  }
